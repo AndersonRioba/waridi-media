@@ -97,7 +97,7 @@ export default function InquiryShow({ inquiry }: InquiryShowProps) {
                                     <button
                                         type="submit"
                                         disabled={isSavingNotes}
-                                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-[#141414] text-white hover:bg-[#C9A227] transition-all"
+                                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-none text-xs font-semibold uppercase tracking-[0.14em] bg-[#141414] text-white hover:bg-[#C9A227] shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_10px_rgba(20,20,20,0.2)] hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none"
                                     >
                                         <Save size={13} />
                                         <span>{isSavingNotes ? 'Saving...' : 'Save Notes'}</span>

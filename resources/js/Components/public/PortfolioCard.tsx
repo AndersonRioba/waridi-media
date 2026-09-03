@@ -28,13 +28,13 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({ project, className
 
                 {/* Category Badge (Top Right) */}
                 <div className="absolute top-4 right-4 z-10">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-white/90 backdrop-blur-md text-[#8A6A16] border border-[#E8DFC8] shadow-sm">
+                    <span className="px-3 py-1 rounded-none text-[11px] font-semibold uppercase tracking-wider bg-white/95 backdrop-blur-md text-[#8A6A16] border border-[#E8DFC8] shadow-[0_2px_6px_rgba(0,0,0,0.08)]">
                         {project.category.replace('_', ' ')}
                     </span>
                 </div>
 
                 {/* Floating Arrow on Hover */}
-                <div className="absolute top-4 left-4 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#8A6A16] opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0">
+                <div className="absolute top-4 left-4 z-10 w-9 h-9 rounded-none bg-white/95 backdrop-blur-md flex items-center justify-center text-[#8A6A16] opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-[0_2px_6px_rgba(0,0,0,0.12)] -translate-x-2 group-hover:translate-x-0">
                     <ArrowUpRight size={18} />
                 </div>
             </div>
@@ -46,7 +46,7 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({ project, className
                         {project.tags.slice(0, 2).map((tag) => (
                             <span
                                 key={tag.id}
-                                className="text-[10px] font-medium uppercase tracking-wider text-[#8A6A16] bg-[#FBF6EC] px-2 py-0.5 rounded"
+                                className="text-[10px] font-medium uppercase tracking-wider text-[#8A6A16] bg-[#FBF6EC] px-2 py-0.5 rounded-none border border-[#E8DFC8]/60"
                             >
                                 {tag.name}
                             </span>

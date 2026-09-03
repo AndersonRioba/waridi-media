@@ -293,7 +293,7 @@ export default function ProjectsCreate({ tags }: ProjectsCreateProps) {
                                 <button
                                     type="button"
                                     onClick={addMediaItem}
-                                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#FBF6EC] border border-[#C9A227] text-[#8A6A16] rounded-lg text-xs font-semibold hover:bg-[#F5EFE1]"
+                                    className="inline-flex items-center gap-1 px-3.5 py-1.5 bg-[#FBF6EC] border border-[#C9A227] text-[#8A6A16] rounded-none text-xs font-semibold uppercase tracking-wider hover:bg-[#F5EFE1] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-sm hover:-translate-y-0.5 transition-all"
                                 >
                                     <Plus size={13} />
                                     <span>Add Media Row</span>
@@ -354,10 +354,10 @@ export default function ProjectsCreate({ tags }: ProjectsCreateProps) {
                                         type="button"
                                         key={tag.id}
                                         onClick={() => toggleTag(tag.id)}
-                                        className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                                        className={`px-3.5 py-1.5 rounded-none text-xs font-medium transition-all border ${
                                             data.tag_ids.includes(tag.id)
-                                                ? 'bg-[#8A6A16] text-white shadow-xs'
-                                                : 'bg-[#FBF6EC] border border-[#E8DFC8] text-[#5C5850] hover:text-[#1A1A1A]'
+                                                ? 'bg-[#141414] text-[#FAF6EC] border-[#141414] shadow-sm ring-1 ring-[#C9A227]/40'
+                                                : 'bg-white border-[#E8DFC8] text-[#5C5850] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-[#C9A227] hover:text-[#1A1A1A]'
                                         }`}
                                     >
                                         {tag.name}
@@ -412,14 +412,14 @@ export default function ProjectsCreate({ tags }: ProjectsCreateProps) {
                     <div className="flex items-center justify-end gap-4">
                         <Link
                             href="/admin/projects"
-                            className="px-6 py-2.5 rounded-xl border border-[#E8DFC8] text-xs font-semibold text-[#1A1A1A] hover:bg-[#F5EFE1]"
+                            className="px-6 py-2.5 rounded-none border border-[#E8DFC8] text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] hover:bg-[#F5EFE1] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-sm hover:-translate-y-0.5 transition-all"
                         >
                             Cancel
                         </Link>
                         <button
                             type="submit"
                             disabled={processing}
-                            className="px-8 py-2.5 rounded-xl text-xs font-semibold bg-[#141414] text-white hover:bg-[#C9A227] transition-all shadow-md"
+                            className="px-8 py-2.5 rounded-none text-xs font-semibold uppercase tracking-[0.14em] bg-[#141414] text-white hover:bg-[#C9A227] shadow-[0_4px_14px_rgba(20,20,20,0.18)] hover:shadow-[0_6px_20px_rgba(20,20,20,0.25)] hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none"
                         >
                             {processing ? 'Saving...' : 'Save Project'}
                         </button>

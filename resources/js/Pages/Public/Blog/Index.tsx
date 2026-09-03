@@ -32,32 +32,46 @@ export default function BlogIndex({ posts, categories, selectedCategory }: BlogI
                 </div>
             </section>
 
-            {/* Category Pills */}
-            <section className="bg-white border-b border-[#E8DFC8] py-4">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center flex-wrap gap-2">
-                    <button
-                        onClick={() => handleCategoryFilter(undefined)}
-                        className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
-                            !selectedCategory
-                                ? 'bg-[#141414] text-white'
-                                : 'bg-[#FBF6EC] text-[#5C5850] hover:text-[#1A1A1A] border border-[#E8DFC8]'
-                        }`}
-                    >
-                        All Categories
-                    </button>
-                    {categories.map((cat) => (
+            {/* Category Filter */}
+            <section className="bg-white/95 backdrop-blur-md border-b border-[#E8DFC8] py-4 sticky top-20 z-30 shadow-[0_4px_20px_-4px_rgba(20,20,20,0.04)]">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+                    <div className="flex items-center flex-wrap gap-2.5 overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden max-w-full">
                         <button
-                            key={cat.id}
-                            onClick={() => handleCategoryFilter(cat.slug)}
-                            className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
-                                selectedCategory === cat.slug
-                                    ? 'bg-[#8A6A16] text-white'
-                                    : 'bg-[#FBF6EC] text-[#5C5850] hover:text-[#1A1A1A] border border-[#E8DFC8]'
+                            onClick={() => handleCategoryFilter(undefined)}
+                            className={`px-5 py-2.5 rounded-none text-[11px] font-semibold uppercase tracking-[0.16em] transition-all duration-200 shrink-0 flex items-center gap-2 border ${
+                                !selectedCategory
+                                    ? 'bg-[#141414] text-[#FAF6EC] border-[#141414] shadow-[0_4px_14px_rgba(20,20,20,0.16)] ring-1 ring-[#C9A227]/40 -translate-y-0.5'
+                                    : 'bg-white text-[#666053] border-[#E8DFC8] shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(0,0,0,0.08)] hover:border-[#C9A227] hover:text-[#141414] hover:-translate-y-0.5'
                             }`}
                         >
-                            {cat.name} ({cat.posts_count ?? 0})
+                            {!selectedCategory && (
+                                <span className="w-1.5 h-1.5 bg-[#E8C766] shadow-[0_0_6px_rgba(232,199,102,0.9)]" />
+                            )}
+                            <span>All Categories</span>
                         </button>
-                    ))}
+                        {categories.map((cat) => {
+                            const isActive = selectedCategory === cat.slug;
+                            return (
+                                <button
+                                    key={cat.id}
+                                    onClick={() => handleCategoryFilter(cat.slug)}
+                                    className={`px-5 py-2.5 rounded-none text-[11px] font-semibold uppercase tracking-[0.16em] transition-all duration-200 shrink-0 flex items-center gap-2 border ${
+                                        isActive
+                                            ? 'bg-[#141414] text-[#FAF6EC] border-[#141414] shadow-[0_4px_14px_rgba(20,20,20,0.16)] ring-1 ring-[#C9A227]/40 -translate-y-0.5'
+                                            : 'bg-white text-[#666053] border-[#E8DFC8] shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(0,0,0,0.08)] hover:border-[#C9A227] hover:text-[#141414] hover:-translate-y-0.5'
+                                    }`}
+                                >
+                                    {isActive && (
+                                        <span className="w-1.5 h-1.5 bg-[#E8C766] shadow-[0_0_6px_rgba(232,199,102,0.9)]" />
+                                    )}
+                                    <span>{cat.name}</span>
+                                    <span className={`text-[10px] ${isActive ? 'text-[#E8C766]' : 'text-[#A8A49C]'}`}>
+                                        ({cat.posts_count ?? 0})
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
             </section>
 

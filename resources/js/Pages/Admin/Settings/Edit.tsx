@@ -70,7 +70,7 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                         type="button"
                         onClick={handleSubmit}
                         disabled={processing}
-                        className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-xl text-xs font-semibold bg-[#141414] text-white hover:bg-[#C9A227] transition-all shadow-md"
+                        className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-none text-xs font-semibold uppercase tracking-[0.14em] bg-[#141414] text-white hover:bg-[#C9A227] shadow-[0_4px_14px_rgba(20,20,20,0.18)] hover:shadow-[0_6px_20px_rgba(20,20,20,0.25)] hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none"
                     >
                         <Save size={15} />
                         <span>{processing ? 'Saving...' : 'Save Settings'}</span>
@@ -260,7 +260,7 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="px-8 py-3 rounded-xl text-xs font-semibold bg-[#141414] text-white hover:bg-[#C9A227] transition-all shadow-md"
+                            className="px-8 py-3 rounded-none text-xs font-semibold uppercase tracking-[0.14em] bg-[#141414] text-white hover:bg-[#C9A227] shadow-[0_4px_14px_rgba(20,20,20,0.18)] hover:shadow-[0_6px_20px_rgba(20,20,20,0.25)] hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none"
                         >
                             Save Settings
                         </button>

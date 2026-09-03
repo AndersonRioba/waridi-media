@@ -44,14 +44,14 @@ export default function Error({ status = 404 }: ErrorProps) {
                     <div className="flex items-center justify-center gap-4">
                         <Link
                             href="/"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] shadow-md"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 transition-all"
                         >
                             <Home size={15} />
                             <span>Return to Home</span>
                         </Link>
                         <Link
                             href="/portfolio"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] bg-white border border-[#E8DFC8]"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-[#1A1A1A] bg-white border border-[#E8DFC8] shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all"
                         >
                             <span>Browse Work</span>
                         </Link>

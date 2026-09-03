@@ -162,7 +162,7 @@ export default function ProjectShow({ project, relatedProjects = [] }: ProjectSh
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                         <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                            <div className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#8A6A16]">
+                                            <div className="w-10 h-10 rounded-none bg-white/95 backdrop-blur-md shadow-md flex items-center justify-center text-[#8A6A16]">
                                                 <Maximize2 size={18} />
                                             </div>
                                         </div>
@@ -178,7 +178,7 @@ export default function ProjectShow({ project, relatedProjects = [] }: ProjectSh
                     )}
 
                     {/* Book This Style CTA */}
-                    <div className="bg-[#FBF6EC] rounded-3xl p-10 md:p-16 border border-[#E8DFC8] text-center max-w-4xl mx-auto my-16">
+                    <div className="bg-[#FBF6EC] rounded-3xl p-10 md:p-16 border border-[#E8DFC8] text-center max-w-4xl mx-auto my-16 shadow-xs">
                         <h3 className="font-serif text-3xl font-bold text-[#1A1A1A] mb-3">
                             Envisioning a Similar Visual Masterpiece?
                         </h3>
@@ -187,7 +187,7 @@ export default function ProjectShow({ project, relatedProjects = [] }: ProjectSh
                         </p>
                         <Link
                             href="/contact"
-                            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:scale-105 transition-all shadow-md"
+                            className="inline-flex items-center gap-2 px-8 py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 transition-all"
                         >
                             <Sparkles size={16} />
                             <span>Inquire for This Service</span>

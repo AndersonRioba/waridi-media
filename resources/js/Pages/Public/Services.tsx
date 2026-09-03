@@ -156,7 +156,7 @@ export default function Services({
                                         </Link>
                                         <Link
                                             href="/contact"
-                                            className="px-3 py-1 bg-[#C9A227] text-white rounded text-[11px] font-medium"
+                                            className="px-3.5 py-1.5 bg-[#141414] text-[#FAF6EC] border border-[#C9A227]/60 hover:bg-[#C9A227] hover:text-white rounded-none text-[11px] font-semibold uppercase tracking-wider shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all"
                                         >
                                             Inquire
                                         </Link>

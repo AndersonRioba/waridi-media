@@ -124,7 +124,7 @@ export default function Livestream({
                                             href={event.stream_url}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#8A6A16] hover:text-[#1A1A1A]"
+                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider text-[#8A6A16] bg-white hover:bg-[#F5EFE1] border border-[#E8DFC8] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-sm hover:-translate-y-0.5 transition-all"
                                         >
                                             <span>Stream Portal</span>
                                             <ExternalLink size={13} />
@@ -171,7 +171,7 @@ export default function Livestream({
                                                 <Radio size={36} />
                                             </div>
                                         )}
-                                        <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded text-[10px] uppercase font-bold text-white flex items-center gap-1.5">
+                                        <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-none text-[10px] uppercase font-bold text-white flex items-center gap-1.5 shadow-sm border border-white/10">
                                             <CheckCircle2 size={12} className="text-green-400" />
                                             <span>Archived</span>
                                         </div>
@@ -187,7 +187,7 @@ export default function Livestream({
                                             href={event.stream_url}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A1A1A] hover:text-[#8A6A16]"
+                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] bg-[#FBF6EC] hover:bg-[#F5EFE1] border border-[#E8DFC8] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-sm hover:-translate-y-0.5 transition-all"
                                         >
                                             <span>Watch Recording</span>
                                             <ExternalLink size={13} />

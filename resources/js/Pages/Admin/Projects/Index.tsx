@@ -43,7 +43,7 @@ export default function ProjectsIndex({ projects, filters }: ProjectsIndexProps)
 
                 <Link
                     href="/admin/projects/create"
-                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-[#141414] text-white hover:bg-[#C9A227] transition-colors shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-none text-xs font-semibold uppercase tracking-[0.14em] bg-[#141414] text-white hover:bg-[#C9A227] shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_10px_rgba(20,20,20,0.2)] hover:-translate-y-0.5 transition-all"
                 >
                     <Plus size={15} />
                     <span>Create New Project</span>
@@ -65,7 +65,7 @@ export default function ProjectsIndex({ projects, filters }: ProjectsIndexProps)
                     </div>
                     <button
                         type="submit"
-                        className="px-3 py-2 bg-[#F5EFE1] text-[#1A1A1A] rounded-xl text-xs font-semibold hover:bg-[#E8DFC8]"
+                        className="px-3.5 py-2 bg-[#F5EFE1] text-[#1A1A1A] rounded-none text-xs font-semibold uppercase tracking-wider hover:bg-[#E8DFC8] border border-[#E8DFC8] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-sm hover:-translate-y-0.5 transition-all"
                     >
                         Search
                     </button>

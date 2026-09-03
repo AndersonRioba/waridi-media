@@ -250,7 +250,7 @@ export default function Contact({ services, settings }: ContactProps) {
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="w-full py-4 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:opacity-95 transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                                    className="w-full py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:opacity-95 shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none"
                                 >
                                     <Send size={15} />
                                     <span>{processing ? 'Transmitting...' : 'Submit Inquiry'}</span>

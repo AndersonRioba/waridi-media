@@ -53,7 +53,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
                 <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Link
                         href={buttonLink}
-                        className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold uppercase tracking-wider text-xs text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:opacity-95 transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                        className="inline-flex items-center gap-2.5 px-8 py-4 rounded-none font-semibold uppercase tracking-[0.16em] text-xs text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:opacity-95 transition-all shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5"
                     >
                         <Sparkles size={16} />
                         <span>{buttonText}</span>
@@ -62,10 +62,10 @@ export const CTASection: React.FC<CTASectionProps> = ({
 
                     <Link
                         href="/portfolio"
-                        className={`inline-flex items-center gap-2 px-7 py-4 rounded-full font-semibold uppercase tracking-wider text-xs transition-all border ${
+                        className={`inline-flex items-center gap-2 px-7 py-4 rounded-none font-semibold uppercase tracking-[0.16em] text-xs transition-all border shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 ${
                             isDark
                                 ? 'text-[#FBF6EC] border-[#A8A49C]/40 hover:border-[#E8C766]'
-                                : 'text-[#1A1A1A] border-[#1A1A1A]/30 hover:border-[#C9A227]'
+                                : 'text-[#1A1A1A] border-[#1A1A1A]/30 hover:border-[#C9A227] bg-white'
                         }`}
                     >
                         <span>Explore Our Work</span>

@@ -1,7 +1,6 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { Head, Link, usePage, router } from '@inertiajs/react';
 import { PageProps } from '@/types';
-import { BrandRoseIcon } from '@/Components/public/BrandLogo';
 import {
     LayoutDashboard,
     FolderKanban,
@@ -110,17 +109,14 @@ export const AdminLayout: React.FC<PropsWithChildren<AdminLayoutProps>> = ({
             >
                 <div>
                     {/* Brand Head */}
-                    <div className="p-6 border-b border-[#2A2A2A] flex items-center justify-between">
-                        <Link href="/admin" className="flex items-center gap-3">
-                            <BrandRoseIcon size={34} />
-                            <div>
-                                <span className="font-serif font-bold text-lg text-[#E8C766] block leading-none">
-                                    WARIDI
-                                </span>
-                                <span className="text-[9px] uppercase tracking-[0.25em] text-[#A8A49C] block mt-0.5">
-                                    CMS STUDIO
-                                </span>
-                            </div>
+                    <div className="p-5 border-b border-[#2A2A2A] flex items-center justify-between">
+                        <Link href="/admin" className="flex items-center gap-2.5">
+                            <img
+                                src="/images/waridi-logo.jpg"
+                                alt="Waridi Media"
+                                className="object-contain brightness-105"
+                                style={{ height: 38, width: 'auto' }}
+                            />
                         </Link>
                         <button
                             onClick={() => setSidebarOpen(false)}
@@ -199,7 +195,7 @@ export const AdminLayout: React.FC<PropsWithChildren<AdminLayoutProps>> = ({
                 <header className="bg-white border-b border-[#E8DFC8] px-6 py-4 flex items-center justify-between lg:justify-end">
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="p-1.5 rounded-lg text-[#1A1A1A] lg:hidden"
+                        className="p-1.5 rounded-none text-[#1A1A1A] lg:hidden"
                     >
                         <Menu size={22} />
                     </button>
@@ -208,7 +204,7 @@ export const AdminLayout: React.FC<PropsWithChildren<AdminLayoutProps>> = ({
                         <Link
                             href="/"
                             target="_blank"
-                            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#8A6A16] bg-[#FBF6EC] hover:bg-[#F5EFE1] border border-[#E8DFC8] transition-colors"
+                            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider text-[#8A6A16] bg-[#FBF6EC] hover:bg-[#F5EFE1] border border-[#E8DFC8] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-sm hover:-translate-y-0.5 transition-all"
                         >
                             <span>View Public Site</span>
                             <ExternalLink size={13} />

@@ -30,7 +30,7 @@ export default function ServicesIndex({ services, selectedGroup }: ServicesIndex
 
                 <Link
                     href="/admin/services/create"
-                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-[#141414] text-white hover:bg-[#C9A227] transition-colors shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-none text-xs font-semibold uppercase tracking-[0.14em] bg-[#141414] text-white hover:bg-[#C9A227] shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_10px_rgba(20,20,20,0.2)] hover:-translate-y-0.5 transition-all"
                 >
                     <Plus size={15} />
                     <span>Add Service</span>
@@ -38,37 +38,45 @@ export default function ServicesIndex({ services, selectedGroup }: ServicesIndex
             </div>
 
             {/* Filter */}
-            <div className="bg-white p-4 rounded-2xl border border-[#E8DFC8] mb-6 flex items-center gap-2">
+            <div className="bg-white p-4 rounded-2xl border border-[#E8DFC8] mb-6 flex items-center gap-3">
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#8A6A16]">Filter:</span>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                     <button
                         onClick={() => router.get('/admin/services')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${
-                            !selectedGroup ? 'bg-[#141414] text-white' : 'bg-[#FBF6EC] text-[#5C5850]'
+                        className={`px-3.5 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider border transition-all ${
+                            !selectedGroup
+                                ? 'bg-[#141414] text-white border-[#141414] shadow-sm'
+                                : 'bg-white text-[#5C5850] border-[#E8DFC8] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-[#C9A227] hover:text-[#1A1A1A]'
                         }`}
                     >
                         All
                     </button>
                     <button
                         onClick={() => router.get('/admin/services', { group: 'photography' })}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${
-                            selectedGroup === 'photography' ? 'bg-[#8A6A16] text-white' : 'bg-[#FBF6EC] text-[#5C5850]'
+                        className={`px-3.5 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider border transition-all ${
+                            selectedGroup === 'photography'
+                                ? 'bg-[#141414] text-white border-[#141414] shadow-sm'
+                                : 'bg-white text-[#5C5850] border-[#E8DFC8] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-[#C9A227] hover:text-[#1A1A1A]'
                         }`}
                     >
                         Photography
                     </button>
                     <button
                         onClick={() => router.get('/admin/services', { group: 'media_production' })}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${
-                            selectedGroup === 'media_production' ? 'bg-[#8A6A16] text-white' : 'bg-[#FBF6EC] text-[#5C5850]'
+                        className={`px-3.5 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider border transition-all ${
+                            selectedGroup === 'media_production'
+                                ? 'bg-[#141414] text-white border-[#141414] shadow-sm'
+                                : 'bg-white text-[#5C5850] border-[#E8DFC8] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-[#C9A227] hover:text-[#1A1A1A]'
                         }`}
                     >
                         Media Production
                     </button>
                     <button
                         onClick={() => router.get('/admin/services', { group: 'print_creative' })}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${
-                            selectedGroup === 'print_creative' ? 'bg-[#8A6A16] text-white' : 'bg-[#FBF6EC] text-[#5C5850]'
+                        className={`px-3.5 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider border transition-all ${
+                            selectedGroup === 'print_creative'
+                                ? 'bg-[#141414] text-white border-[#141414] shadow-sm'
+                                : 'bg-white text-[#5C5850] border-[#E8DFC8] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-[#C9A227] hover:text-[#1A1A1A]'
                         }`}
                     >
                         Print & Creative

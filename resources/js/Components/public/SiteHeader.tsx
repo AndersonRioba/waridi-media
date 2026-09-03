@@ -68,7 +68,7 @@ export const SiteHeader: React.FC = () => {
                 <div className="hidden lg:flex items-center gap-4">
                     <Link
                         href="/contact"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-[#141414] border border-[#C9A227] hover:bg-gradient-to-r hover:from-[#E8C766] hover:to-[#C9A227] hover:text-white hover:border-transparent transition-all duration-300 shadow-sm group"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-[#141414] border border-[#C9A227] hover:bg-gradient-to-r hover:from-[#E8C766] hover:to-[#C9A227] hover:text-white hover:border-transparent transition-all duration-300 shadow-[0_2px_6px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_12px_rgba(201,162,39,0.25)] hover:-translate-y-0.5 group"
                     >
                         <span>Book a Shoot</span>
                         <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
@@ -79,7 +79,7 @@ export const SiteHeader: React.FC = () => {
                 <div className="md:hidden flex items-center">
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
-                        className="p-2 rounded-lg text-[#1A1A1A] hover:text-[#C9A227] focus:outline-none"
+                        className="p-2 rounded-none text-[#1A1A1A] hover:text-[#C9A227] focus:outline-none"
                         aria-label="Toggle Navigation Menu"
                     >
                         {mobileOpen ? <X size={26} /> : <Menu size={26} />}
@@ -108,7 +108,7 @@ export const SiteHeader: React.FC = () => {
                         <Link
                             href="/contact"
                             onClick={() => setMobileOpen(false)}
-                            className="mt-2 text-center py-3 rounded-full text-sm font-semibold uppercase tracking-wider bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] text-white shadow-md"
+                            className="mt-2 text-center py-3 rounded-none text-xs font-semibold uppercase tracking-[0.16em] bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] text-white shadow-[0_4px_12px_rgba(201,162,39,0.25)] hover:shadow-lg"
                         >
                             Book a Session
                         </Link>

@@ -62,18 +62,18 @@ export const TestimonialSlider: React.FC<TestimonialSliderProps> = ({ testimonia
             <div className="flex items-center justify-center gap-4 mt-10">
                 <button
                     onClick={prev}
-                    className="w-10 h-10 rounded-full border border-[#E8DFC8] bg-white hover:border-[#C9A227] hover:text-[#8A6A16] flex items-center justify-center transition-colors shadow-sm"
+                    className="w-10 h-10 rounded-none border border-[#E8DFC8] bg-white hover:border-[#C9A227] hover:text-[#8A6A16] flex items-center justify-center transition-all shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 cursor-pointer"
                     aria-label="Previous Testimonial"
                 >
                     <ChevronLeft size={18} />
                 </button>
-                <div className="flex gap-1.5">
+                <div className="flex gap-1.5 items-center">
                     {testimonials.map((_, idx) => (
                         <button
                             key={idx}
                             onClick={() => setCurrentIndex(idx)}
-                            className={`h-2 rounded-full transition-all ${
-                                idx === currentIndex ? 'w-6 bg-[#C9A227]' : 'w-2 bg-[#E8DFC8]'
+                            className={`h-2 rounded-none transition-all cursor-pointer ${
+                                idx === currentIndex ? 'w-6 bg-[#C9A227] shadow-xs' : 'w-2 bg-[#E8DFC8]'
                             }`}
                             aria-label={`Go to slide ${idx + 1}`}
                         />
@@ -81,7 +81,7 @@ export const TestimonialSlider: React.FC<TestimonialSliderProps> = ({ testimonia
                 </div>
                 <button
                     onClick={next}
-                    className="w-10 h-10 rounded-full border border-[#E8DFC8] bg-white hover:border-[#C9A227] hover:text-[#8A6A16] flex items-center justify-center transition-colors shadow-sm"
+                    className="w-10 h-10 rounded-none border border-[#E8DFC8] bg-white hover:border-[#C9A227] hover:text-[#8A6A16] flex items-center justify-center transition-all shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 cursor-pointer"
                     aria-label="Next Testimonial"
                 >
                     <ChevronRight size={18} />

@@ -116,7 +116,7 @@ export default function Home({
                     <div className="flex flex-col sm:flex-row items-center gap-4">
                         <Link
                             href="/portfolio"
-                            className="w-full sm:w-auto px-8 py-4 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:opacity-95 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                            className="w-full sm:w-auto px-8 py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:opacity-95 shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
                         >
                             <span>View Our Work</span>
                             <ArrowRight size={15} />
@@ -124,7 +124,7 @@ export default function Home({
 
                         <Link
                             href="/contact"
-                            className="w-full sm:w-auto px-8 py-4 rounded-full text-xs font-semibold uppercase tracking-wider text-[#141414] bg-white/90 backdrop-blur-md border border-[#C9A227]/80 hover:bg-[#F5EFE1] shadow-sm transition-all duration-300 flex items-center justify-center"
+                            className="w-full sm:w-auto px-8 py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-[#141414] bg-white/95 backdrop-blur-md border border-[#C9A227]/80 hover:bg-[#F5EFE1] shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center"
                         >
                             Book a Session
                         </Link>
@@ -182,7 +182,7 @@ export default function Home({
                     <div className="text-center mt-16">
                         <Link
                             href="/portfolio"
-                            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider text-[#141414] border border-[#C9A227] hover:bg-gradient-to-r hover:from-[#E8C766] hover:to-[#C9A227] hover:text-white transition-all shadow-sm group"
+                            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-[#141414] bg-white border border-[#C9A227] hover:bg-gradient-to-r hover:from-[#E8C766] hover:to-[#C9A227] hover:text-white transition-all shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(201,162,39,0.25)] hover:-translate-y-0.5 group"
                         >
                             <span>Explore Full Portfolio</span>
                             <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
@@ -227,14 +227,14 @@ export default function Home({
                             <div className="flex flex-wrap gap-4">
                                 <Link
                                     href="/livestream"
-                                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider text-[#141414] bg-[#E8C766] hover:bg-[#C9A227] transition-all"
+                                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-[#141414] bg-[#E8C766] hover:bg-[#C9A227] shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_16px_rgba(232,199,102,0.4)] hover:-translate-y-0.5 transition-all"
                                 >
                                     <Play size={14} fill="currentColor" />
                                     <span>View Livestreams</span>
                                 </Link>
                                 <Link
                                     href="/services"
-                                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider text-white border border-[#E8C766]/40 hover:border-[#E8C766] transition-all"
+                                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white border border-[#E8C766]/40 hover:border-[#E8C766] shadow-[0_2px_4px_rgba(0,0,0,0.3)] hover:shadow-md hover:-translate-y-0.5 transition-all"
                                 >
                                     <span>Production Specs</span>
                                 </Link>
