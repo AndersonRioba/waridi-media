@@ -96,17 +96,7 @@ export default function Home({
 
                 {/* Hero Content */}
                 <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center flex flex-col items-center">
-                    {/* Live Broadcast Pill (If currently Live) */}
-                    {activeLive && (
-                        <Link
-                            href="/livestream"
-                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#C9432E]/40 text-[#C9432E] text-xs font-semibold tracking-wider uppercase mb-6 shadow-sm animate-pulse"
-                        >
-                            <span className="w-2.5 h-2.5 rounded-full bg-[#C9432E]" />
-                            <span>Live Now: {activeLive.title}</span>
-                            <ChevronRight size={14} />
-                        </Link>
-                    )}
+
 
                     {/* Rose Emblem Accent */}
                     <div className="mb-4">
