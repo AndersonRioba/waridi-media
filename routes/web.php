@@ -37,3 +37,46 @@ require __DIR__.'/admin.php';
 
 // Auth Routes (Breeze)
 require __DIR__.'/auth.php';
+
+// Temporary utility route to clear cache / run migrations without terminal
+Route::get('/clear-cache', function () {
+    $results = [];
+    
+    try {
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        $results[] = 'optimize:clear: ' . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Throwable $e) {
+        $results[] = 'optimize:clear error: ' . $e->getMessage();
+    }
+
+    try {
+        \Illuminate\Support\Facades\Artisan::call('config:clear');
+        $results[] = 'config:clear: ' . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Throwable $e) {
+        $results[] = 'config:clear error: ' . $e->getMessage();
+    }
+
+    try {
+        \Illuminate\Support\Facades\Artisan::call('cache:clear');
+        $results[] = 'cache:clear: ' . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Throwable $e) {
+        $results[] = 'cache:clear error: ' . $e->getMessage();
+    }
+
+    try {
+        \Illuminate\Support\Facades\Artisan::call('view:clear');
+        $results[] = 'view:clear: ' . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Throwable $e) {
+        $results[] = 'view:clear error: ' . $e->getMessage();
+    }
+
+    try {
+        \Illuminate\Support\Facades\Artisan::call('route:clear');
+        $results[] = 'route:clear: ' . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Throwable $e) {
+        $results[] = 'route:clear error: ' . $e->getMessage();
+    }
+
+    return response('<pre style="background:#111;color:#0f0;padding:20px;font-family:monospace;font-size:14px;">' . implode("\n", $results) . "\n\nAll caches cleared successfully!</pre>");
+});
+
