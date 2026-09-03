@@ -53,7 +53,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
                 <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Link
                         href={buttonLink}
-                        className="inline-flex items-center gap-2.5 px-8 py-4 rounded-none font-semibold uppercase tracking-[0.16em] text-xs text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:opacity-95 transition-all shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5"
+                        className="inline-flex items-center gap-2.5 px-8 py-4 rounded-none font-semibold uppercase tracking-[0.16em] text-xs text-white bg-[#C9A227] hover:bg-[#B38F1E] transition-all shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5"
                     >
                         <Sparkles size={16} />
                         <span>{buttonText}</span>

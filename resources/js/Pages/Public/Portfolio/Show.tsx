@@ -187,7 +187,7 @@ export default function ProjectShow({ project, relatedProjects = [] }: ProjectSh
                         </p>
                         <Link
                             href="/contact"
-                            className="inline-flex items-center gap-2 px-8 py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 transition-all"
+                            className="inline-flex items-center gap-2 px-8 py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white bg-[#C9A227] hover:bg-[#B38F1E] shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 transition-all"
                         >
                             <Sparkles size={16} />
                             <span>Inquire for This Service</span>

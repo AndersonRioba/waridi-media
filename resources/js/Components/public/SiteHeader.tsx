@@ -161,7 +161,7 @@ export const SiteHeader: React.FC = () => {
                         <Link
                             href="/contact"
                             onClick={() => setMobileOpen(false)}
-                            className="mt-2 text-center py-3 rounded-none text-xs font-semibold uppercase tracking-[0.16em] bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] text-white shadow-[0_4px_12px_rgba(201,162,39,0.25)] hover:shadow-lg"
+                            className="mt-2 text-center py-3 rounded-none text-xs font-semibold uppercase tracking-[0.16em] bg-[#C9A227] hover:bg-[#B38F1E] text-white shadow-[0_4px_12px_rgba(201,162,39,0.25)] hover:shadow-lg transition-colors"
                         >
                             Book a Session
                         </Link>

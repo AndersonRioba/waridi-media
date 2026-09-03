@@ -60,9 +60,9 @@ export default function Home({
     ];
 
     // Dynamic Hero Settings with defaults
-    const heroEyebrow = settings?.hero_eyebrow || 'EXPERIENCE THE MAGIC OF';
-    const heroTitle = settings?.hero_title || 'WARIDI';
-    const heroSubline = settings?.hero_subline || 'PHOTO STUDIO & MEDIA';
+    const heroEyebrow = settings?.hero_eyebrow ?? 'EXPERIENCE THE MAGIC OF';
+    const heroTitle = settings?.hero_title ?? 'WARIDI';
+    const heroSubline = settings?.hero_subline !== undefined ? settings.hero_subline : 'PHOTO STUDIO & MEDIA';
     const heroBgImage = settings?.hero_bg_image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=2000&q=85';
     const heroPrimaryText = settings?.hero_cta_primary_text || 'View Our Work';
     const heroPrimaryLink = settings?.hero_cta_primary_link || '/portfolio';
@@ -114,28 +114,36 @@ export default function Home({
                     </div>
 
                     {/* Eyebrow Label */}
-                    <GoldDivider label={heroEyebrow} diamondSize={5} className="mb-3" />
+                    {heroEyebrow && (
+                        <GoldDivider label={heroEyebrow} diamondSize={5} className="mb-3" />
+                    )}
 
                     {/* Display Serif Headline */}
-                    <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tight leading-none text-[#141414]">
-                        <span className="gold-gradient-text drop-shadow-sm">{heroTitle}</span>
-                    </h1>
+                    {heroTitle && (
+                        <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tight leading-none text-[#141414]">
+                            <span className="gold-gradient-text drop-shadow-sm">{heroTitle}</span>
+                        </h1>
+                    )}
 
-                    {/* Subline */}
-                    <div className="text-sm sm:text-base font-semibold uppercase tracking-[0.35em] text-[#141414] mt-3">
-                        {heroSubline}
-                    </div>
+                    {/* Subline — only renders if provided and not empty */}
+                    {heroSubline && heroSubline.trim() !== '' && (
+                        <div className="text-sm sm:text-base font-semibold uppercase tracking-[0.35em] text-[#141414] mt-3">
+                            {heroSubline}
+                        </div>
+                    )}
 
                     {/* Calligraphic Script Tagline */}
-                    <p className="font-script text-3xl sm:text-4xl md:text-5xl text-[#C9A227] mt-4 mb-8">
-                        {settings?.tagline || 'Where Moments Become Memories'}
-                    </p>
+                    {settings?.tagline && (
+                        <p className="font-script text-3xl sm:text-4xl md:text-5xl text-[#C9A227] mt-4 mb-8">
+                            {settings.tagline}
+                        </p>
+                    )}
 
                     {/* CTAs */}
                     <div className="flex flex-col sm:flex-row items-center gap-4">
                         <Link
                             href={heroPrimaryLink}
-                            className="w-full sm:w-auto px-8 py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:opacity-95 shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
+                            className="w-full sm:w-auto px-8 py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white bg-[#C9A227] hover:bg-[#B38F1E] shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
                         >
                             <span>{heroPrimaryText}</span>
                             <ArrowRight size={15} />
