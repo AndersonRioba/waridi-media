@@ -59,6 +59,25 @@ export default function Home({
         { label: 'Media Productions', value: '320+' },
     ];
 
+    // Dynamic Hero Settings with defaults
+    const heroEyebrow = settings?.hero_eyebrow || 'EXPERIENCE THE MAGIC OF';
+    const heroTitle = settings?.hero_title || 'WARIDI';
+    const heroSubline = settings?.hero_subline || 'PHOTO STUDIO & MEDIA';
+    const heroBgImage = settings?.hero_bg_image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=2000&q=85';
+    const heroPrimaryText = settings?.hero_cta_primary_text || 'View Our Work';
+    const heroPrimaryLink = settings?.hero_cta_primary_link || '/portfolio';
+    const heroSecondaryText = settings?.hero_cta_secondary_text || 'Book a Session';
+    const heroSecondaryLink = settings?.hero_cta_secondary_link || '/contact';
+
+    // Dynamic Offerings Strip with fallback to seeded iconStripServices
+    const offeringsTitle = settings?.offerings_title || 'SIGNATURE STUDIO & PRODUCTION OFFERINGS';
+    const offerings = (settings?.offerings_items && settings.offerings_items.length > 0)
+        ? settings.offerings_items
+        : iconStripServices.map((s) => ({
+              title: s.title,
+              category: s.service_group || 'photography',
+          }));
+
     return (
         <PublicLayout title="Where Moments Become Memories">
             {/* 1. HERO SECTION */}
@@ -66,7 +85,7 @@ export default function Home({
                 {/* Background Imagery with Editorial Scrim */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=2000&q=85"
+                        src={heroBgImage}
                         alt="Waridi Studio Luxury Portraiture"
                         className="w-full h-full object-cover object-center opacity-35 filter contrast-[1.05]"
                     />
@@ -95,38 +114,38 @@ export default function Home({
                     </div>
 
                     {/* Eyebrow Label */}
-                    <GoldDivider label="EXPERIENCE THE MAGIC OF" diamondSize={5} className="mb-3" />
+                    <GoldDivider label={heroEyebrow} diamondSize={5} className="mb-3" />
 
                     {/* Display Serif Headline */}
                     <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tight leading-none text-[#141414]">
-                        <span className="gold-gradient-text drop-shadow-sm">WARIDI</span>
+                        <span className="gold-gradient-text drop-shadow-sm">{heroTitle}</span>
                     </h1>
 
                     {/* Subline */}
                     <div className="text-sm sm:text-base font-semibold uppercase tracking-[0.35em] text-[#141414] mt-3">
-                        PHOTO STUDIO & MEDIA
+                        {heroSubline}
                     </div>
 
                     {/* Calligraphic Script Tagline */}
                     <p className="font-script text-3xl sm:text-4xl md:text-5xl text-[#C9A227] mt-4 mb-8">
-                        Where Moments Become Memories
+                        {settings?.tagline || 'Where Moments Become Memories'}
                     </p>
 
                     {/* CTAs */}
                     <div className="flex flex-col sm:flex-row items-center gap-4">
                         <Link
-                            href="/portfolio"
+                            href={heroPrimaryLink}
                             className="w-full sm:w-auto px-8 py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white bg-gradient-to-r from-[#E8C766] via-[#C9A227] to-[#8A6A16] hover:opacity-95 shadow-[0_4px_14px_rgba(201,162,39,0.25)] hover:shadow-[0_6px_20px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
                         >
-                            <span>View Our Work</span>
+                            <span>{heroPrimaryText}</span>
                             <ArrowRight size={15} />
                         </Link>
 
                         <Link
-                            href="/contact"
+                            href={heroSecondaryLink}
                             className="w-full sm:w-auto px-8 py-4 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-[#141414] bg-white/95 backdrop-blur-md border border-[#C9A227]/80 hover:bg-[#F5EFE1] shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center"
                         >
-                            Book a Session
+                            {heroSecondaryText}
                         </Link>
                     </div>
                 </div>
@@ -136,24 +155,27 @@ export default function Home({
             <section className="bg-white border-y border-[#E8DFC8] py-8 relative z-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <p className="text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-[#8A6A16] mb-6">
-                        SIGNATURE STUDIO & PRODUCTION OFFERINGS
+                        {offeringsTitle}
                     </p>
 
                     <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 text-center">
-                        {iconStripServices.map((service) => (
-                            <Link
-                                key={service.id}
-                                href={`/portfolio?category=${service.service_group}`}
-                                className="group flex flex-col items-center p-3 rounded-xl hover:bg-[#FBF6EC] transition-all duration-300"
-                            >
-                                <div className="w-12 h-12 rounded-full border border-[#E8DFC8] group-hover:border-[#C9A227] flex items-center justify-center text-[#141414] group-hover:text-[#8A6A16] bg-[#FFFFFF] group-hover:bg-[#F5EFE1] transition-all shadow-sm mb-2.5">
-                                    {serviceIcons[service.slug] || <Camera size={20} />}
-                                </div>
-                                <span className="text-xs font-medium text-[#1A1A1A] group-hover:text-[#8A6A16] transition-colors leading-tight">
-                                    {service.title}
-                                </span>
-                            </Link>
-                        ))}
+                        {offerings.map((item: any, idx: number) => {
+                            const slug = item.title ? item.title.toLowerCase().replace(/\s+/g, '-') : '';
+                            return (
+                                <Link
+                                    key={idx}
+                                    href={`/portfolio?category=${item.category || 'photography'}`}
+                                    className="group flex flex-col items-center p-3 rounded-xl hover:bg-[#FBF6EC] transition-all duration-300"
+                                >
+                                    <div className="w-12 h-12 rounded-full border border-[#E8DFC8] group-hover:border-[#C9A227] flex items-center justify-center text-[#141414] group-hover:text-[#8A6A16] bg-[#FFFFFF] group-hover:bg-[#F5EFE1] transition-all shadow-sm mb-2.5">
+                                        {serviceIcons[slug] || <Camera size={20} />}
+                                    </div>
+                                    <span className="text-xs font-medium text-[#1A1A1A] group-hover:text-[#8A6A16] transition-colors leading-tight">
+                                        {item.title}
+                                    </span>
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
             </section>

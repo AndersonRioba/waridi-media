@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
 import { ImageUploader } from '@/Components/admin/ImageUploader';
-import { Save, Plus, Trash2, Globe, Share2, Compass, LayoutTemplate } from 'lucide-react';
+import { Save, Plus, Trash2, Globe, Share2, Compass, LayoutTemplate, Sparkles, Layers, Image as ImageIcon } from 'lucide-react';
 
 interface SettingsEditProps {
     settings: Record<string, any>;
@@ -15,6 +15,27 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
             tagline: settings?.tagline || 'Where Moments Become Memories',
             logo_url: settings?.logo_url || '/images/waridi-logo.jpg',
             dark_logo_url: settings?.dark_logo_url || '',
+            // Hero section settings
+            hero_eyebrow: settings?.hero_eyebrow || 'EXPERIENCE THE MAGIC OF',
+            hero_title: settings?.hero_title || 'WARIDI',
+            hero_subline: settings?.hero_subline || 'PHOTO STUDIO & MEDIA',
+            hero_bg_image: settings?.hero_bg_image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=2000&q=85',
+            hero_cta_primary_text: settings?.hero_cta_primary_text || 'View Our Work',
+            hero_cta_primary_link: settings?.hero_cta_primary_link || '/portfolio',
+            hero_cta_secondary_text: settings?.hero_cta_secondary_text || 'Book a Session',
+            hero_cta_secondary_link: settings?.hero_cta_secondary_link || '/contact',
+            // Offerings Strip settings
+            offerings_title: settings?.offerings_title || 'SIGNATURE STUDIO & PRODUCTION OFFERINGS',
+            offerings_items: settings?.offerings_items || [
+                { title: 'Studio Portraits', category: 'photography' },
+                { title: 'Family Photography', category: 'photography' },
+                { title: 'Graduation Photography', category: 'photography' },
+                { title: 'Maternity Photography', category: 'photography' },
+                { title: 'Wedding Photography', category: 'photography' },
+                { title: 'Product Photography', category: 'photography' },
+                { title: 'Drone Services', category: 'media_production' },
+                { title: 'Canvas Prints', category: 'print_creative' },
+            ],
             contact_email: settings?.contact_email || 'info@waridimedia.com',
             contact_phone: settings?.contact_phone || '+254 700 123 456',
             address: settings?.address || 'Ngong Road, Nairobi, Kenya',
@@ -90,6 +111,20 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
         updateField('nav_links', data.settings.nav_links.filter((_: any, i: number) => i !== index));
     };
 
+    const updateOfferingItem = (index: number, key: 'title' | 'category', value: string) => {
+        const items = [...data.settings.offerings_items];
+        items[index][key] = value;
+        updateField('offerings_items', items);
+    };
+
+    const addOfferingItem = () => {
+        updateField('offerings_items', [...data.settings.offerings_items, { title: 'New Service', category: 'photography' }]);
+    };
+
+    const removeOfferingItem = (index: number) => {
+        updateField('offerings_items', data.settings.offerings_items.filter((_: any, i: number) => i !== index));
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         put('/admin/settings');
@@ -104,7 +139,7 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                             Studio Settings & Brand Defaults
                         </h1>
                         <p className="text-xs text-[#5C5850] mt-1">
-                            Configure site logos, navigation menus, footer copy, social media channels, contact details, and SEO.
+                            Configure site logos, homepage hero banner, signature offerings, navigation menus, footer copy, social media channels, contact details, and SEO.
                         </p>
                     </div>
 
@@ -120,6 +155,182 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
+                    {/* Homepage Hero Section Customizer */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <Sparkles size={18} className="text-[#C9A227]" />
+                            <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                Homepage Hero Banner
+                            </h2>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Eyebrow Ribbon Text
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.hero_eyebrow}
+                                    onChange={(e) => updateField('hero_eyebrow', e.target.value)}
+                                    placeholder="e.g. EXPERIENCE THE MAGIC OF"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Main Hero Title
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.hero_title}
+                                    onChange={(e) => updateField('hero_title', e.target.value)}
+                                    placeholder="e.g. WARIDI"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm font-serif font-bold text-[#8A6A16]"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Hero Subline
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.hero_subline}
+                                    onChange={(e) => updateField('hero_subline', e.target.value)}
+                                    placeholder="e.g. PHOTO STUDIO & MEDIA"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+                        </div>
+
+                        <ImageUploader
+                            label="Hero Background Image"
+                            description="Full-screen editorial background image with warm studio aesthetic"
+                            value={data.settings.hero_bg_image}
+                            onChange={(url) => updateField('hero_bg_image', url)}
+                        />
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                            <div className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-3">
+                                <h3 className="text-xs uppercase font-semibold text-[#8A6A16]">Primary Button (Gold CTA)</h3>
+                                <div>
+                                    <label className="block text-[11px] font-semibold text-[#5C5850] mb-1">Button Label</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.hero_cta_primary_text}
+                                        onChange={(e) => updateField('hero_cta_primary_text', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-[11px] font-semibold text-[#5C5850] mb-1">Destination URL</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.hero_cta_primary_link}
+                                        onChange={(e) => updateField('hero_cta_primary_link', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-3">
+                                <h3 className="text-xs uppercase font-semibold text-[#8A6A16]">Secondary Button (Outline CTA)</h3>
+                                <div>
+                                    <label className="block text-[11px] font-semibold text-[#5C5850] mb-1">Button Label</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.hero_cta_secondary_text}
+                                        onChange={(e) => updateField('hero_cta_secondary_text', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-[11px] font-semibold text-[#5C5850] mb-1">Destination URL</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.hero_cta_secondary_link}
+                                        onChange={(e) => updateField('hero_cta_secondary_link', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Homepage Signature Offerings Strip Customizer */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center justify-between pb-2 border-b border-[#E8DFC8]">
+                            <div className="flex items-center gap-2">
+                                <Layers size={18} className="text-[#C9A227]" />
+                                <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                    Homepage Signature Offerings Strip
+                                </h2>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={addOfferingItem}
+                                className="inline-flex items-center gap-1 text-xs text-[#8A6A16] font-semibold hover:text-[#141414]"
+                            >
+                                <Plus size={14} /> Add Offering Item
+                            </button>
+                        </div>
+
+                        <div>
+                            <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                Offerings Strip Header Ribbon
+                            </label>
+                            <input
+                                type="text"
+                                value={data.settings.offerings_title}
+                                onChange={(e) => updateField('offerings_title', e.target.value)}
+                                placeholder="e.g. SIGNATURE STUDIO & PRODUCTION OFFERINGS"
+                                className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm uppercase tracking-wider text-[#8A6A16]"
+                            />
+                        </div>
+
+                        <div className="space-y-3">
+                            <label className="block text-xs uppercase font-semibold text-[#1A1A1A]">
+                                Circular Offerings Items (Displays icon + title on homepage)
+                            </label>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {data.settings.offerings_items.map((item: any, idx: number) => (
+                                    <div
+                                        key={idx}
+                                        className="flex items-center gap-2 p-2.5 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8]"
+                                    >
+                                        <input
+                                            type="text"
+                                            value={item.title}
+                                            onChange={(e) => updateOfferingItem(idx, 'title', e.target.value)}
+                                            placeholder="Service title e.g. Studio Portraits"
+                                            className="flex-1 px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs font-semibold bg-white"
+                                        />
+                                        <select
+                                            value={item.category}
+                                            onChange={(e) => updateOfferingItem(idx, 'category', e.target.value)}
+                                            className="px-2 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                        >
+                                            <option value="photography">Photography</option>
+                                            <option value="media_production">Media Production</option>
+                                            <option value="print_creative">Print & Creative</option>
+                                        </select>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeOfferingItem(idx)}
+                                            className="p-1 text-red-600 hover:text-red-800"
+                                            title="Delete offering"
+                                        >
+                                            <Trash2 size={15} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Brand Logos */}
                     <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
                         <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
