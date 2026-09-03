@@ -109,37 +109,3 @@ Route::get('/run-seed', function () {
     return response('<pre style="background:#111;color:#0f0;padding:20px;font-family:monospace;font-size:14px;line-height:1.6;">' . implode("\n", $results) . "\n\nDatabase seeding execution finished.</pre>");
 });
 
-// Temporary utility route to reset the admin password directly without email
-Route::get('/reset-admin', function (\Illuminate\Http\Request $request) {
-    $email = $request->query('email', 'admin@waridimedia.com');
-    $newPassword = $request->query('password', 'Waridi@2026!');
-
-    $user = \App\Models\User::where('email', $email)->first();
-
-    if (! $user) {
-        // If user doesn't exist, create it as Admin
-        $user = \App\Models\User::create([
-            'name' => 'Waridi Admin',
-            'email' => $email,
-            'password' => \Illuminate\Support\Facades\Hash::make($newPassword),
-            'role' => \App\Enums\UserRole::ADMIN,
-            'email_verified_at' => now(),
-        ]);
-        $message = "Admin account created successfully!";
-    } else {
-        $user->password = \Illuminate\Support\Facades\Hash::make($newPassword);
-        $user->role = \App\Enums\UserRole::ADMIN;
-        $user->save();
-        $message = "Admin password reset successfully!";
-    }
-
-    return response('<pre style="background:#111;color:#0f0;padding:25px;font-family:monospace;font-size:15px;line-height:1.7;">' .
-        "==============================================\n" .
-        " $message\n" .
-        "==============================================\n\n" .
-        "Email:    " . $user->email . "\n" .
-        "Password: " . $newPassword . "\n\n" .
-        "You can now log in at: " . url('/login') . "\n" .
-        "(Optional: You can change password via URL: /reset-admin?password=YOUR_NEW_PASSWORD)\n" .
-        '</pre>');
-});
