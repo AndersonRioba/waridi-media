@@ -25,3 +25,11 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Documentation & AI guides
+/AGENTS.md
+/CLAUDE.md
+/DATABASE_SCHEMA.md
+/DESIGN_SYSTEM.md
+/PROJECT_SPEC.md
+/docs/
