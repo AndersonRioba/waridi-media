@@ -3,7 +3,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { BrandLogo } from './BrandLogo';
 import { GoldDivider } from './GoldDivider';
 import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
-import { InstagramIcon, FacebookIcon, YoutubeIcon } from './SocialIcons';
+import { InstagramIcon, FacebookIcon, YoutubeIcon, TiktokIcon } from './SocialIcons';
 import { PageProps } from '@/types';
 
 export const SiteFooter: React.FC = () => {
@@ -30,31 +30,34 @@ export const SiteFooter: React.FC = () => {
                         </p>
                         <div className="flex items-center gap-3 pt-2">
                             <a
-                                href="https://instagram.com"
+                                href="https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu"
                                 target="_blank"
-                                rel="noreferrer"
+                                rel="noopener noreferrer"
                                 className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
-                                aria-label="Instagram"
+                                aria-label="Waridi Instagram"
+                                title="Instagram"
                             >
                                 <InstagramIcon size={17} />
                             </a>
                             <a
-                                href="https://facebook.com"
+                                href="https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr"
                                 target="_blank"
-                                rel="noreferrer"
+                                rel="noopener noreferrer"
                                 className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
-                                aria-label="Facebook"
+                                aria-label="Waridi Facebook"
+                                title="Facebook"
                             >
                                 <FacebookIcon size={17} />
                             </a>
                             <a
-                                href="https://youtube.com"
+                                href="https://www.tiktok.com/@waridistudio"
                                 target="_blank"
-                                rel="noreferrer"
+                                rel="noopener noreferrer"
                                 className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
-                                aria-label="YouTube"
+                                aria-label="Waridi TikTok"
+                                title="TikTok"
                             >
-                                <YoutubeIcon size={17} />
+                                <TiktokIcon size={17} />
                             </a>
                         </div>
                     </div>
