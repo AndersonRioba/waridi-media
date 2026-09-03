@@ -4,9 +4,10 @@ import { PageProps } from '@/types';
 
 interface BrandLogoProps {
     variant?: 'light' | 'dark';
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'sm' | 'md' | 'lg' | 'header';
     showTagline?: boolean;
     className?: string;
+    imageClassName?: string;
 }
 
 export const BrandRoseIcon: React.FC<{ className?: string; size?: number }> = ({
@@ -33,6 +34,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     size = 'md',
     showTagline = false,
     className = '',
+    imageClassName = '',
 }) => {
     const { siteSettings } = usePage<PageProps>().props;
     const defaultLogo = '/images/waridi-logo.jpg';
@@ -42,19 +44,19 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         ? siteSettings.dark_logo_url
         : (siteSettings?.logo_url || defaultLogo);
 
-    const heights: Record<string, number> = {
-        sm: 38,
-        md: 52,
-        lg: 68,
+    // Height presets with responsive styling
+    const sizeClasses: Record<string, string> = {
+        sm: 'h-9 sm:h-10',
+        md: 'h-12 sm:h-14 md:h-16',
+        lg: 'h-16 sm:h-20 md:h-24',
+        header: 'h-12 sm:h-14 md:h-16 lg:h-18 max-h-[72px]',
     };
 
     const imgEl = (
         <img
             src={logoSrc}
             alt={siteSettings?.company_name || 'Waridi Photo Studio & Media'}
-            height={heights[size]}
-            className="object-contain transition-opacity duration-300 group-hover:opacity-90"
-            style={{ height: heights[size], width: 'auto' }}
+            className={`object-contain w-auto transition-all duration-300 group-hover:opacity-95 ${sizeClasses[size] || sizeClasses.md} ${imageClassName}`}
         />
     );
 

@@ -49,13 +49,13 @@ export const SiteHeader: React.FC = () => {
         <header
             className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
                 isScrolled
-                    ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_25px_rgba(20,20,20,0.06)] border-b border-[#E8DFC8]/60 py-3.5'
-                    : 'bg-white/80 md:bg-white/60 backdrop-blur-sm border-b border-[#E8DFC8]/40 py-5'
+                    ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_25px_rgba(20,20,20,0.06)] border-b border-[#E8DFC8]/60 py-2 sm:py-2.5'
+                    : 'bg-white/85 md:bg-white/70 backdrop-blur-sm border-b border-[#E8DFC8]/40 py-2.5 sm:py-3.5'
             }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-                {/* Logo */}
-                <BrandLogo size="md" />
+                {/* Logo - expands to adopt header height while keeping navbar slim and responsive */}
+                <BrandLogo size="header" className="py-0.5" />
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-8">
