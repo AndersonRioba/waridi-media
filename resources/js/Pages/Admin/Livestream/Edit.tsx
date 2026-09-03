@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
+import { ImageUploader } from '@/Components/admin/ImageUploader';
 import { LivestreamEvent } from '@/types';
 import { ArrowLeft } from 'lucide-react';
 
@@ -131,14 +132,11 @@ export default function LivestreamEdit({ event }: LivestreamEditProps) {
                     </div>
 
                     <div>
-                        <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
-                            Cover Image / Poster URL
-                        </label>
-                        <input
-                            type="text"
+                        <ImageUploader
+                            label="Cover Image / Poster"
+                            description="Thumbnail/banner image for the livestream"
                             value={data.cover_image}
-                            onChange={(e) => setData('cover_image', e.target.value)}
-                            className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                            onChange={(url) => setData('cover_image', url)}
                         />
                     </div>
 

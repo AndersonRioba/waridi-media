@@ -4,8 +4,11 @@ import { BrandLogo } from './BrandLogo';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { InstagramIcon, FacebookIcon, TiktokIcon } from './SocialIcons';
 
+import { PageProps } from '@/types';
+
 export const SiteHeader: React.FC = () => {
-    const { url } = usePage();
+    const { url, props } = usePage<PageProps>();
+    const siteSettings = props?.siteSettings;
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -17,7 +20,7 @@ export const SiteHeader: React.FC = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const navLinks = [
+    const defaultNavLinks = [
         { label: 'Work', href: '/portfolio' },
         { label: 'Services', href: '/services' },
         { label: 'About', href: '/about' },
@@ -25,6 +28,16 @@ export const SiteHeader: React.FC = () => {
         { label: 'Journal', href: '/journal' },
         { label: 'Contact', href: '/contact' },
     ];
+
+    const navLinks = (siteSettings?.nav_links && siteSettings.nav_links.length > 0)
+        ? siteSettings.nav_links
+        : defaultNavLinks;
+
+    const socials = {
+        instagram: siteSettings?.social_links?.instagram || 'https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu',
+        facebook: siteSettings?.social_links?.facebook || 'https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr',
+        tiktok: siteSettings?.social_links?.tiktok || 'https://www.tiktok.com/@waridistudio',
+    };
 
     const isActive = (href: string) => {
         if (href === '/portfolio' && url.startsWith('/portfolio')) return true;
@@ -68,36 +81,42 @@ export const SiteHeader: React.FC = () => {
                 {/* Right CTA & Socials */}
                 <div className="hidden lg:flex items-center gap-5">
                     <div className="flex items-center gap-2.5 border-r border-[#E8DFC8] pr-5">
-                        <a
-                            href="https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-8 h-8 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all duration-200"
-                            aria-label="Waridi Instagram"
-                            title="Instagram"
-                        >
-                            <InstagramIcon size={15} />
-                        </a>
-                        <a
-                            href="https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-8 h-8 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all duration-200"
-                            aria-label="Waridi Facebook"
-                            title="Facebook"
-                        >
-                            <FacebookIcon size={15} />
-                        </a>
-                        <a
-                            href="https://www.tiktok.com/@waridistudio"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-8 h-8 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all duration-200"
-                            aria-label="Waridi TikTok"
-                            title="TikTok"
-                        >
-                            <TiktokIcon size={15} />
-                        </a>
+                        {socials.instagram && (
+                            <a
+                                href={socials.instagram}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-8 h-8 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all duration-200"
+                                aria-label="Waridi Instagram"
+                                title="Instagram"
+                            >
+                                <InstagramIcon size={15} />
+                            </a>
+                        )}
+                        {socials.facebook && (
+                            <a
+                                href={socials.facebook}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-8 h-8 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all duration-200"
+                                aria-label="Waridi Facebook"
+                                title="Facebook"
+                            >
+                                <FacebookIcon size={15} />
+                            </a>
+                        )}
+                        {socials.tiktok && (
+                            <a
+                                href={socials.tiktok}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-8 h-8 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all duration-200"
+                                aria-label="Waridi TikTok"
+                                title="TikTok"
+                            >
+                                <TiktokIcon size={15} />
+                            </a>
+                        )}
                     </div>
 
                     <Link
@@ -148,33 +167,39 @@ export const SiteHeader: React.FC = () => {
                         </Link>
 
                         <div className="flex items-center justify-center gap-4 pt-4 mt-2 border-t border-[#E8DFC8]">
-                            <a
-                                href="https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all"
-                                aria-label="Waridi Instagram"
-                            >
-                                <InstagramIcon size={17} />
-                            </a>
-                            <a
-                                href="https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all"
-                                aria-label="Waridi Facebook"
-                            >
-                                <FacebookIcon size={17} />
-                            </a>
-                            <a
-                                href="https://www.tiktok.com/@waridistudio"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all"
-                                aria-label="Waridi TikTok"
-                            >
-                                <TiktokIcon size={17} />
-                            </a>
+                            {socials.instagram && (
+                                <a
+                                    href={socials.instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all"
+                                    aria-label="Waridi Instagram"
+                                >
+                                    <InstagramIcon size={17} />
+                                </a>
+                            )}
+                            {socials.facebook && (
+                                <a
+                                    href={socials.facebook}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all"
+                                    aria-label="Waridi Facebook"
+                                >
+                                    <FacebookIcon size={17} />
+                                </a>
+                            )}
+                            {socials.tiktok && (
+                                <a
+                                    href={socials.tiktok}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all"
+                                    aria-label="Waridi TikTok"
+                                >
+                                    <TiktokIcon size={17} />
+                                </a>
+                            )}
                         </div>
                     </div>
                 </div>

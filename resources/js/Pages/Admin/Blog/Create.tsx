@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
+import { ImageUploader } from '@/Components/admin/ImageUploader';
 import { BlogCategory, TeamMember } from '@/types';
 import { ArrowLeft } from 'lucide-react';
 
@@ -74,16 +75,11 @@ export default function BlogCreate({ categories, authors }: BlogCreateProps) {
                     </div>
 
                     <div>
-                        <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
-                            Cover Image URL *
-                        </label>
-                        <input
-                            type="text"
-                            required
+                        <ImageUploader
+                            label="Cover Image *"
+                            description="Main hero image for this journal article"
                             value={data.cover_image}
-                            onChange={(e) => setData('cover_image', e.target.value)}
-                            placeholder="https://..."
-                            className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                            onChange={(url) => setData('cover_image', url)}
                         />
                         {errors.cover_image && <p className="text-xs text-red-600 mt-1">{errors.cover_image}</p>}
                     </div>

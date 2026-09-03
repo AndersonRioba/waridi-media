@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
+import { ImageUploader } from '@/Components/admin/ImageUploader';
 import { ArrowLeft } from 'lucide-react';
 
 interface TestimonialsCreateProps {
@@ -87,15 +88,11 @@ export default function TestimonialsCreate({ projects }: TestimonialsCreateProps
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
-                                Client Photo URL
-                            </label>
-                            <input
-                                type="text"
+                            <ImageUploader
+                                label="Client Photo"
+                                description="Avatar or photo of the client"
                                 value={data.photo}
-                                onChange={(e) => setData('photo', e.target.value)}
-                                placeholder="https://..."
-                                className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                onChange={(url) => setData('photo', url)}
                             />
                         </div>
 

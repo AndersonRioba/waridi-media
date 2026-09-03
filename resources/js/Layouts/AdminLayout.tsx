@@ -112,7 +112,7 @@ export const AdminLayout: React.FC<PropsWithChildren<AdminLayoutProps>> = ({
                     <div className="p-5 border-b border-[#2A2A2A] flex items-center justify-between">
                         <Link href="/admin" className="flex items-center gap-2.5">
                             <img
-                                src="/images/waridi-logo.jpg"
+                                src={siteSettings?.dark_logo_url || siteSettings?.logo_url || '/images/waridi-logo.jpg'}
                                 alt="Waridi Media"
                                 className="object-contain brightness-105"
                                 style={{ height: 38, width: 'auto' }}

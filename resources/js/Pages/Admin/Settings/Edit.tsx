@@ -1,7 +1,8 @@
 import React from 'react';
 import { useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
-import { Save, Plus, Trash2 } from 'lucide-react';
+import { ImageUploader } from '@/Components/admin/ImageUploader';
+import { Save, Plus, Trash2, Globe, Share2, Compass, LayoutTemplate } from 'lucide-react';
 
 interface SettingsEditProps {
     settings: Record<string, any>;
@@ -12,6 +13,8 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
         settings: {
             company_name: settings?.company_name || 'Waridi Photo Studio',
             tagline: settings?.tagline || 'Where Moments Become Memories',
+            logo_url: settings?.logo_url || '/images/waridi-logo.jpg',
+            dark_logo_url: settings?.dark_logo_url || '',
             contact_email: settings?.contact_email || 'info@waridimedia.com',
             contact_phone: settings?.contact_phone || '+254 700 123 456',
             address: settings?.address || 'Ngong Road, Nairobi, Kenya',
@@ -23,15 +26,40 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                 { label: 'Happy Clients', value: '1,800+' },
                 { label: 'Media Productions', value: '320+' },
             ],
+            social_links: {
+                instagram: settings?.social_links?.instagram ?? 'https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu',
+                facebook: settings?.social_links?.facebook ?? 'https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr',
+                tiktok: settings?.social_links?.tiktok ?? 'https://www.tiktok.com/@waridistudio',
+                youtube: settings?.social_links?.youtube ?? '',
+            },
+            nav_links: settings?.nav_links || [
+                { label: 'Work', href: '/portfolio' },
+                { label: 'Services', href: '/services' },
+                { label: 'About', href: '/about' },
+                { label: 'Livestream', href: '/livestream' },
+                { label: 'Journal', href: '/journal' },
+                { label: 'Contact', href: '/contact' },
+            ],
+            footer_description: settings?.footer_description || 'Premier East African photography studio, cinema media production, and archival fine art printing. Crafting timeless visual memories with uncompromised artistic devotion.',
+            footer_copyright: settings?.footer_copyright || 'Waridi Photo Studio & Media. All rights reserved.',
             seo_default_title: settings?.seo_default_title || 'Waridi Photo Studio & Media',
             seo_default_description: settings?.seo_default_description || 'Where Moments Become Memories',
             seo_default_og_image: settings?.seo_default_og_image || '',
-            footer_text: settings?.footer_text || '',
         },
     });
 
     const updateField = (field: string, value: any) => {
         setData('settings', { ...data.settings, [field]: value });
+    };
+
+    const updateSocial = (network: string, value: string) => {
+        setData('settings', {
+            ...data.settings,
+            social_links: {
+                ...data.settings.social_links,
+                [network]: value,
+            },
+        });
     };
 
     const updateStat = (index: number, key: 'label' | 'value', value: string) => {
@@ -48,6 +76,20 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
         updateField('stats', data.settings.stats.filter((_: any, i: number) => i !== index));
     };
 
+    const updateNavLink = (index: number, key: 'label' | 'href', value: string) => {
+        const links = [...data.settings.nav_links];
+        links[index][key] = value;
+        updateField('nav_links', links);
+    };
+
+    const addNavLink = () => {
+        updateField('nav_links', [...data.settings.nav_links, { label: 'New Page', href: '/' }]);
+    };
+
+    const removeNavLink = (index: number) => {
+        updateField('nav_links', data.settings.nav_links.filter((_: any, i: number) => i !== index));
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         put('/admin/settings');
@@ -62,7 +104,7 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                             Studio Settings & Brand Defaults
                         </h1>
                         <p className="text-xs text-[#5C5850] mt-1">
-                            Configure site-wide brand information, contact details, stats, and SEO.
+                            Configure site logos, navigation menus, footer copy, social media channels, contact details, and SEO.
                         </p>
                     </div>
 
@@ -78,11 +120,40 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
+                    {/* Brand Logos */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <LayoutTemplate size={18} className="text-[#C9A227]" />
+                            <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                Brand Logos (Header & Footer)
+                            </h2>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <ImageUploader
+                                label="Main Brand Logo"
+                                description="Displayed across the website header and navigation"
+                                value={data.settings.logo_url}
+                                onChange={(url) => updateField('logo_url', url)}
+                            />
+
+                            <ImageUploader
+                                label="Dark Surface Logo (Optional)"
+                                description="Used on dark backgrounds like footer. Defaults to main logo if empty"
+                                value={data.settings.dark_logo_url}
+                                onChange={(url) => updateField('dark_logo_url', url)}
+                            />
+                        </div>
+                    </div>
+
                     {/* Brand Identity & Contact */}
                     <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
-                        <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
-                            Brand & Contact Information
-                        </h2>
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <Globe size={18} className="text-[#C9A227]" />
+                            <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                Brand & Contact Information
+                            </h2>
+                        </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
@@ -157,6 +228,163 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                                     type="text"
                                     value={data.settings.opening_hours}
                                     onChange={(e) => updateField('opening_hours', e.target.value)}
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Social Media Links */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <Share2 size={18} className="text-[#C9A227]" />
+                            <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                Social Media Channels (Header, Footer, & Contact)
+                            </h2>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Instagram Profile URL
+                                </label>
+                                <input
+                                    type="url"
+                                    value={data.settings.social_links.instagram}
+                                    onChange={(e) => updateSocial('instagram', e.target.value)}
+                                    placeholder="https://www.instagram.com/..."
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Facebook Page URL
+                                </label>
+                                <input
+                                    type="url"
+                                    value={data.settings.social_links.facebook}
+                                    onChange={(e) => updateSocial('facebook', e.target.value)}
+                                    placeholder="https://www.facebook.com/..."
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    TikTok Profile URL
+                                </label>
+                                <input
+                                    type="url"
+                                    value={data.settings.social_links.tiktok}
+                                    onChange={(e) => updateSocial('tiktok', e.target.value)}
+                                    placeholder="https://www.tiktok.com/@..."
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    YouTube Channel URL
+                                </label>
+                                <input
+                                    type="url"
+                                    value={data.settings.social_links.youtube}
+                                    onChange={(e) => updateSocial('youtube', e.target.value)}
+                                    placeholder="https://www.youtube.com/@..."
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Navigation Menu Management */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center justify-between pb-2 border-b border-[#E8DFC8]">
+                            <div className="flex items-center gap-2">
+                                <Compass size={18} className="text-[#C9A227]" />
+                                <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                    Header Navigation Menu
+                                </h2>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={addNavLink}
+                                className="inline-flex items-center gap-1 text-xs text-[#8A6A16] font-semibold hover:text-[#141414]"
+                            >
+                                <Plus size={14} /> Add Menu Item
+                            </button>
+                        </div>
+
+                        <p className="text-xs text-[#5C5850]">
+                            Reorder or edit the labels and destination URLs of your main site navigation bar.
+                        </p>
+
+                        <div className="space-y-3">
+                            {data.settings.nav_links.map((link: any, idx: number) => (
+                                <div
+                                    key={idx}
+                                    className="flex items-center gap-3 p-3 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8]"
+                                >
+                                    <input
+                                        type="text"
+                                        value={link.label}
+                                        onChange={(e) => updateNavLink(idx, 'label', e.target.value)}
+                                        placeholder="Label e.g. Work"
+                                        className="w-40 px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-sm font-semibold bg-white"
+                                    />
+                                    <input
+                                        type="text"
+                                        value={link.href}
+                                        onChange={(e) => updateNavLink(idx, 'href', e.target.value)}
+                                        placeholder="URL path e.g. /portfolio"
+                                        className="flex-1 px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-sm bg-white"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => removeNavLink(idx)}
+                                        className="p-1 text-red-600 hover:text-red-800"
+                                        title="Delete link"
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Footer Content & Copyright */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <LayoutTemplate size={18} className="text-[#C9A227]" />
+                            <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                Footer Copy & Copyright
+                            </h2>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Footer Mission Statement / Description
+                                </label>
+                                <textarea
+                                    rows={3}
+                                    value={data.settings.footer_description}
+                                    onChange={(e) => updateField('footer_description', e.target.value)}
+                                    placeholder="Enter footer brand summary paragraph..."
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Copyright Notice
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.footer_copyright}
+                                    onChange={(e) => updateField('footer_copyright', e.target.value)}
+                                    placeholder="e.g. Waridi Photo Studio & Media. All rights reserved."
                                     className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
                                 />
                             </div>

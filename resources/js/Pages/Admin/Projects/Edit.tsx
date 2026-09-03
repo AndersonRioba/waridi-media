@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
+import { ImageUploader } from '@/Components/admin/ImageUploader';
 import { Project, Tag } from '@/types';
-import { ArrowLeft, Plus, Trash2, Upload } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Upload, Loader2 } from 'lucide-react';
 
 interface ProjectsEditProps {
     project: Project;
@@ -250,54 +251,66 @@ export default function ProjectsEdit({ project, tags }: ProjectsEditProps) {
                         </h2>
 
                         <div>
-                            <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
-                                Cover Image URL *
-                            </label>
-                            <div className="flex gap-3">
-                                <input
-                                    type="text"
-                                    required
-                                    value={data.cover_image}
-                                    onChange={(e) => setData('cover_image', e.target.value)}
-                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
-                                />
-                                <label className="cursor-pointer px-4 py-2.5 bg-[#F5EFE1] hover:bg-[#E8DFC8] text-[#1A1A1A] rounded-xl text-xs font-semibold flex items-center gap-1.5 shrink-0">
-                                    <Upload size={14} />
-                                    <span>Upload</span>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={(e) => handleFileUpload(e, true)}
-                                        className="hidden"
-                                    />
-                                </label>
-                            </div>
-                            {data.cover_image && (
-                                <div className="mt-3 w-40 aspect-[4/3] rounded-xl overflow-hidden border border-[#E8DFC8]">
-                                    <img src={data.cover_image} alt="Cover preview" className="w-full h-full object-cover" />
-                                </div>
-                            )}
+                            <ImageUploader
+                                label="Cover Image *"
+                                description="Main hero image for this project case study"
+                                value={data.cover_image}
+                                onChange={(url) => setData('cover_image', url)}
+                            />
+                            {errors.cover_image && <p className="text-xs text-red-600 mt-1">{errors.cover_image}</p>}
                         </div>
 
                         {/* Gallery Media */}
                         <div className="pt-4 border-t border-[#E8DFC8]">
                             <div className="flex items-center justify-between mb-3">
-                                <span className="text-xs uppercase font-semibold text-[#1A1A1A]">
-                                    Project Gallery Images / Videos
-                                </span>
-                                <button
-                                    type="button"
-                                    onClick={addMediaItem}
-                                    className="inline-flex items-center gap-1 px-3.5 py-1.5 bg-[#FBF6EC] border border-[#C9A227] text-[#8A6A16] rounded-none text-xs font-semibold uppercase tracking-wider hover:bg-[#F5EFE1] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-sm hover:-translate-y-0.5 transition-all"
-                                >
-                                    <Plus size={13} />
-                                    <span>Add Media Row</span>
-                                </button>
+                                <div>
+                                    <span className="text-xs uppercase font-semibold text-[#1A1A1A]">
+                                        Project Gallery Images / Videos
+                                    </span>
+                                    <p className="text-[11px] text-[#7A766E] mt-0.5">
+                                        Upload images directly or paste external video/image links
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141414] text-white rounded-none text-xs font-semibold uppercase tracking-wider hover:bg-[#C9A227] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-sm hover:-translate-y-0.5 transition-all">
+                                        {isUploading ? (
+                                            <>
+                                                <Loader2 size={13} className="animate-spin" />
+                                                <span>Uploading...</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Upload size={13} />
+                                                <span>Upload & Add File</span>
+                                            </>
+                                        )}
+                                        <input
+                                            type="file"
+                                            accept="image/*,video/*"
+                                            disabled={isUploading}
+                                            onChange={(e) => handleFileUpload(e, false)}
+                                            className="hidden"
+                                        />
+                                    </label>
+                                    <button
+                                        type="button"
+                                        onClick={addMediaItem}
+                                        className="inline-flex items-center gap-1 px-3.5 py-1.5 bg-[#FBF6EC] border border-[#C9A227] text-[#8A6A16] rounded-none text-xs font-semibold uppercase tracking-wider hover:bg-[#F5EFE1] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                                    >
+                                        <Plus size={13} />
+                                        <span>Add Custom Row</span>
+                                    </button>
+                                </div>
                             </div>
 
                             <div className="space-y-3">
                                 {data.media.map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-3 p-3 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8]">
+                                    <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 p-3 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8]">
+                                        {item.path_or_url && item.type === 'image' && (
+                                            <div className="w-12 h-12 rounded-lg overflow-hidden border border-[#E8DFC8] shrink-0 bg-black/5">
+                                                <img src={item.path_or_url} alt="" className="w-full h-full object-cover" />
+                                            </div>
+                                        )}
                                         <select
                                             value={item.type}
                                             onChange={(e) => updateMediaItem(idx, 'type', e.target.value)}
@@ -310,20 +323,21 @@ export default function ProjectsEdit({ project, tags }: ProjectsEditProps) {
                                             type="text"
                                             value={item.path_or_url}
                                             onChange={(e) => updateMediaItem(idx, 'path_or_url', e.target.value)}
-                                            placeholder="URL"
-                                            className="flex-1 px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                            placeholder="Image/Video URL or upload"
+                                            className="flex-1 w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
                                         />
                                         <input
                                             type="text"
                                             value={item.caption}
                                             onChange={(e) => updateMediaItem(idx, 'caption', e.target.value)}
-                                            placeholder="Caption"
-                                            className="flex-1 px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                            placeholder="Caption / Description"
+                                            className="w-full sm:w-48 px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
                                         />
                                         <button
                                             type="button"
                                             onClick={() => removeMediaItem(idx)}
-                                            className="p-1.5 text-red-600 hover:text-red-800"
+                                            className="p-1.5 text-red-600 hover:text-red-800 self-end sm:self-center"
+                                            title="Delete media item"
                                         >
                                             <Trash2 size={16} />
                                         </button>

@@ -117,36 +117,42 @@ export default function Contact({ services, settings }: ContactProps) {
                                 <div className="pt-2">
                                     <h4 className="font-serif font-bold text-sm text-[#1A1A1A] mb-3">Follow Our Channels</h4>
                                     <div className="flex items-center gap-3">
-                                        <a
-                                            href="https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-10 h-10 rounded-full bg-[#FBF6EC] border border-[#C9A227] flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all shadow-sm"
-                                            aria-label="Waridi Instagram"
-                                            title="Instagram"
-                                        >
-                                            <InstagramIcon size={18} />
-                                        </a>
-                                        <a
-                                            href="https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-10 h-10 rounded-full bg-[#FBF6EC] border border-[#C9A227] flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all shadow-sm"
-                                            aria-label="Waridi Facebook"
-                                            title="Facebook"
-                                        >
-                                            <FacebookIcon size={18} />
-                                        </a>
-                                        <a
-                                            href="https://www.tiktok.com/@waridistudio"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-10 h-10 rounded-full bg-[#FBF6EC] border border-[#C9A227] flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all shadow-sm"
-                                            aria-label="Waridi TikTok"
-                                            title="TikTok"
-                                        >
-                                            <TiktokIcon size={18} />
-                                        </a>
+                                        {(settings?.social_links?.instagram || 'https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu') && (
+                                            <a
+                                                href={settings?.social_links?.instagram || 'https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-10 h-10 rounded-full bg-[#FBF6EC] border border-[#C9A227] flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all shadow-sm"
+                                                aria-label="Waridi Instagram"
+                                                title="Instagram"
+                                            >
+                                                <InstagramIcon size={18} />
+                                            </a>
+                                        )}
+                                        {(settings?.social_links?.facebook || 'https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr') && (
+                                            <a
+                                                href={settings?.social_links?.facebook || 'https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-10 h-10 rounded-full bg-[#FBF6EC] border border-[#C9A227] flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all shadow-sm"
+                                                aria-label="Waridi Facebook"
+                                                title="Facebook"
+                                            >
+                                                <FacebookIcon size={18} />
+                                            </a>
+                                        )}
+                                        {(settings?.social_links?.tiktok || 'https://www.tiktok.com/@waridistudio') && (
+                                            <a
+                                                href={settings?.social_links?.tiktok || 'https://www.tiktok.com/@waridistudio'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-10 h-10 rounded-full bg-[#FBF6EC] border border-[#C9A227] flex items-center justify-center text-[#8A6A16] hover:bg-[#C9A227] hover:text-white transition-all shadow-sm"
+                                                aria-label="Waridi TikTok"
+                                                title="TikTok"
+                                            >
+                                                <TiktokIcon size={18} />
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             </div>

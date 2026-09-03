@@ -13,6 +13,15 @@ export const SiteFooter: React.FC = () => {
     const phone = siteSettings?.contact_phone || '+254 700 123 456';
     const address = siteSettings?.address || 'Nairobi, Kenya';
     const tagline = siteSettings?.tagline || 'Where Moments Become Memories';
+    const footerDescription = siteSettings?.footer_description || 'Premier East African photography studio, cinema media production, and archival fine art printing. Crafting timeless visual memories with uncompromised artistic devotion.';
+    const footerCopyright = siteSettings?.footer_copyright || 'Waridi Photo Studio & Media. All rights reserved.';
+
+    const socials = {
+        instagram: siteSettings?.social_links?.instagram || 'https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu',
+        facebook: siteSettings?.social_links?.facebook || 'https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr',
+        tiktok: siteSettings?.social_links?.tiktok || 'https://www.tiktok.com/@waridistudio',
+        youtube: siteSettings?.social_links?.youtube || '',
+    };
 
     return (
         <footer className="bg-[#141414] text-[#FBF6EC] pt-20 pb-12 border-t border-[#2A2A2A]">
@@ -26,39 +35,57 @@ export const SiteFooter: React.FC = () => {
                             "{tagline}"
                         </p>
                         <p className="text-sm text-[#A8A49C] max-w-md leading-relaxed">
-                            Premier East African photography studio, cinema media production, and archival fine art printing. Crafting timeless visual memories with uncompromised artistic devotion.
+                            {footerDescription}
                         </p>
                         <div className="flex items-center gap-3 pt-2">
-                            <a
-                                href="https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
-                                aria-label="Waridi Instagram"
-                                title="Instagram"
-                            >
-                                <InstagramIcon size={17} />
-                            </a>
-                            <a
-                                href="https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
-                                aria-label="Waridi Facebook"
-                                title="Facebook"
-                            >
-                                <FacebookIcon size={17} />
-                            </a>
-                            <a
-                                href="https://www.tiktok.com/@waridistudio"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
-                                aria-label="Waridi TikTok"
-                                title="TikTok"
-                            >
-                                <TiktokIcon size={17} />
-                            </a>
+                            {socials.instagram && (
+                                <a
+                                    href={socials.instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
+                                    aria-label="Waridi Instagram"
+                                    title="Instagram"
+                                >
+                                    <InstagramIcon size={17} />
+                                </a>
+                            )}
+                            {socials.facebook && (
+                                <a
+                                    href={socials.facebook}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
+                                    aria-label="Waridi Facebook"
+                                    title="Facebook"
+                                >
+                                    <FacebookIcon size={17} />
+                                </a>
+                            )}
+                            {socials.tiktok && (
+                                <a
+                                    href={socials.tiktok}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
+                                    aria-label="Waridi TikTok"
+                                    title="TikTok"
+                                >
+                                    <TiktokIcon size={17} />
+                                </a>
+                            )}
+                            {socials.youtube && (
+                                <a
+                                    href={socials.youtube}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-9 h-9 rounded-full border border-[#C9A227]/40 flex items-center justify-center text-[#E8C766] hover:bg-[#C9A227] hover:text-[#141414] transition-all"
+                                    aria-label="Waridi YouTube"
+                                    title="YouTube"
+                                >
+                                    <YoutubeIcon size={17} />
+                                </a>
+                            )}
                         </div>
                     </div>
 
@@ -167,7 +194,7 @@ export const SiteFooter: React.FC = () => {
 
                 {/* Bottom Strip */}
                 <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#7A766E]">
-                    <p>© {new Date().getFullYear()} Waridi Photo Studio & Media. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} {footerCopyright}</p>
                     <div className="flex items-center gap-6">
                         <Link href="/login" className="hover:text-[#E8C766] transition-colors">
                             Staff Portal

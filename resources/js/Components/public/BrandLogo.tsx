@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+import { PageProps } from '@/types';
 
 interface BrandLogoProps {
     variant?: 'light' | 'dark';
@@ -8,17 +9,16 @@ interface BrandLogoProps {
     className?: string;
 }
 
-/**
- * BrandRoseIcon — kept for backward-compatibility if any file imports it directly.
- * Now simply renders the real logo at icon scale.
- */
 export const BrandRoseIcon: React.FC<{ className?: string; size?: number }> = ({
     className = '',
     size = 42,
 }) => {
+    const { siteSettings } = usePage<PageProps>().props;
+    const logoSrc = siteSettings?.logo_url || '/images/waridi-logo.jpg';
+
     return (
         <img
-            src="/images/waridi-logo.jpg"
+            src={logoSrc}
             alt="Waridi Media"
             width={size}
             height={size}
@@ -34,7 +34,14 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     showTagline = false,
     className = '',
 }) => {
-    /* Height of the logo image scales with size prop */
+    const { siteSettings } = usePage<PageProps>().props;
+    const defaultLogo = '/images/waridi-logo.jpg';
+    
+    // Check if a dedicated dark logo is set when on dark backgrounds, else fallback to standard logo
+    const logoSrc = (variant === 'dark' && siteSettings?.dark_logo_url)
+        ? siteSettings.dark_logo_url
+        : (siteSettings?.logo_url || defaultLogo);
+
     const heights: Record<string, number> = {
         sm: 38,
         md: 52,
@@ -43,8 +50,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 
     const imgEl = (
         <img
-            src="/images/waridi-logo.jpg"
-            alt="Waridi Media — Where Moments Become Memories"
+            src={logoSrc}
+            alt={siteSettings?.company_name || 'Waridi Photo Studio & Media'}
             height={heights[size]}
             className="object-contain transition-opacity duration-300 group-hover:opacity-90"
             style={{ height: heights[size], width: 'auto' }}
@@ -54,7 +61,6 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     return (
         <Link href="/" className={`inline-flex items-center group ${className}`}>
             {variant === 'dark' ? (
-                /* On dark surfaces give the white-bg logo a subtle dark pill/frame */
                 <div
                     className="rounded-sm overflow-hidden bg-[#1E1E1E] ring-1 ring-[#C9A227]/30 px-2 py-0.5"
                     style={{ lineHeight: 0 }}
@@ -67,3 +73,4 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         </Link>
     );
 };
+
