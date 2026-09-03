@@ -23,4 +23,20 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
+        $exceptions->respond(function ($response, \Throwable $exception, Request $request) {
+            if (! app()->environment('local') && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+                return \Inertia\Inertia::render('Public/Error', ['status' => $response->getStatusCode()])
+                    ->toResponse($request)
+                    ->setStatusCode($response->getStatusCode());
+            }
+
+            if ($response->getStatusCode() === 404) {
+                return \Inertia\Inertia::render('Public/Error', ['status' => 404])
+                    ->toResponse($request)
+                    ->setStatusCode(404);
+            }
+
+            return $response;
+        });
     })->create();
