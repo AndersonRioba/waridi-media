@@ -80,3 +80,31 @@ Route::get('/clear-cache', function () {
     return response('<pre style="background:#111;color:#0f0;padding:20px;font-family:monospace;font-size:14px;">' . implode("\n", $results) . "\n\nAll caches cleared successfully!</pre>");
 });
 
+// Temporary utility route to run database migrations without terminal
+Route::get('/run-migrations', function () {
+    $results = [];
+
+    try {
+        // Run standard migrations with --force (required in production)
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $results[] = "migrate:\n" . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Throwable $e) {
+        $results[] = 'migrate error: ' . $e->getMessage();
+    }
+
+    return response('<pre style="background:#111;color:#0f0;padding:20px;font-family:monospace;font-size:14px;line-height:1.6;">' . implode("\n", $results) . "\n\nMigration execution finished.</pre>");
+});
+
+// Temporary utility route to run database seeders if needed
+Route::get('/run-seed', function () {
+    $results = [];
+
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+        $results[] = "db:seed:\n" . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Throwable $e) {
+        $results[] = 'db:seed error: ' . $e->getMessage();
+    }
+
+    return response('<pre style="background:#111;color:#0f0;padding:20px;font-family:monospace;font-size:14px;line-height:1.6;">' . implode("\n", $results) . "\n\nDatabase seeding execution finished.</pre>");
+});
