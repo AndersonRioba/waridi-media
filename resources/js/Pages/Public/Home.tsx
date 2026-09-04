@@ -98,10 +98,6 @@ export default function Home({
                 <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center flex flex-col items-center">
 
 
-                    {/* Rose Emblem Accent */}
-                    <div className="mb-4">
-                        <BrandRoseIcon size={52} />
-                    </div>
 
                     {/* Eyebrow Label */}
                     {heroEyebrow && (
