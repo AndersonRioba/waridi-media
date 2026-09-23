@@ -50,13 +50,13 @@ test('livestream page can be rendered', function () {
     $response->assertStatus(200);
 });
 
-test('journal index page can be rendered', function () {
-    $response = $this->get('/journal');
+test('blog index page can be rendered', function () {
+    $response = $this->get('/blog');
 
     $response->assertStatus(200);
 });
 
-test('journal show page can be rendered', function () {
+test('blog show page can be rendered', function () {
     $post = BlogPost::firstOrCreate(
         ['slug' => 'sample-test-article'],
         [
@@ -68,7 +68,7 @@ test('journal show page can be rendered', function () {
         ]
     );
 
-    $response = $this->get("/journal/{$post->slug}");
+    $response = $this->get("/blog/{$post->slug}");
 
     $response->assertStatus(200);
 });

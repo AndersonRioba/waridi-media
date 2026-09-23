@@ -6,7 +6,9 @@ import { TestimonialSlider } from '@/Components/public/TestimonialSlider';
 import { CTASection } from '@/Components/public/CTASection';
 import { GoldDivider } from '@/Components/public/GoldDivider';
 import { BrandRoseIcon } from '@/Components/public/BrandLogo';
-import { Project, Service, Testimonial, BlogPost, LivestreamEvent } from '@/types';
+import { TrustStrip } from '@/Components/public/TrustStrip';
+import { ServiceWordRotator } from '@/Components/public/ServiceWordRotator';
+import { Project, Service, Testimonial, BlogPost, LivestreamEvent, Client } from '@/types';
 import {
     ArrowRight,
     Camera,
@@ -19,8 +21,7 @@ import {
     Compass,
     Radio,
     Play,
-    Calendar,
-    ChevronRight,
+    CheckCircle2,
 } from 'lucide-react';
 
 interface HomeProps {
@@ -30,6 +31,7 @@ interface HomeProps {
     recentPosts: BlogPost[];
     activeLive: LivestreamEvent | null;
     settings: Record<string, any>;
+    clients: Client[];
 }
 
 // Icon mapping helper
@@ -51,6 +53,7 @@ export default function Home({
     recentPosts,
     activeLive,
     settings,
+    clients,
 }: HomeProps) {
     const stats = settings?.stats || [
         { label: 'Years of Excellence', value: '8+' },
@@ -118,9 +121,12 @@ export default function Home({
                         </div>
                     )}
 
+                    {/* Service Word Rotator — cycling gold service names */}
+                    <ServiceWordRotator className="mt-3 mb-1" />
+
                     {/* Calligraphic Script Tagline */}
                     {settings?.tagline && (
-                        <p className="font-script text-3xl sm:text-4xl md:text-5xl text-[#C9A227] mt-4 mb-8">
+                        <p className="font-script text-3xl sm:text-4xl md:text-5xl text-[#C9A227] mt-2 mb-8">
                             {settings.tagline}
                         </p>
                     )}
@@ -145,7 +151,10 @@ export default function Home({
                 </div>
             </section>
 
-            {/* 2. SERVICES ICON STRIP (Faithful to Brand Collateral) */}
+            {/* 2. TRUST STRIP — auto-scrolling client logos */}
+            <TrustStrip clients={clients} />
+
+            {/* 3. SERVICES ICON STRIP (Faithful to Brand Collateral) */}
             <section className="bg-white border-y border-[#E8DFC8] py-8 relative z-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <p className="text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-[#8A6A16] mb-6">
@@ -277,7 +286,49 @@ export default function Home({
                 </div>
             </section>
 
-            {/* 6. TESTIMONIALS SLIDER */}
+            {/* 6. WHY CHOOSE US — 3-column value propositions from Settings */}
+            {(() => {
+                const whyChooseUs: { headline: string; blurb: string }[] = settings?.why_choose_us || [];
+                if (!whyChooseUs || whyChooseUs.length === 0) return null;
+                return (
+                    <section className="py-20 bg-[#FBF6EC] border-y border-[#E8DFC8]">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="text-center max-w-2xl mx-auto mb-14">
+                                <GoldDivider label="OUR DISTINCTION" diamondSize={5} className="mb-3" />
+                                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+                                    Why Choose Waridi Studio
+                                </h2>
+                                <p className="text-sm sm:text-base text-[#5C5850] mt-3 font-light">
+                                    Three pillars that distinguish Waridi Photo Studio from every other operator in East Africa.
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                {whyChooseUs.map((item, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="group relative bg-white rounded-2xl p-8 border border-[#E8DFC8] shadow-sm hover:shadow-lg hover:border-[#C9A227] transition-all duration-300"
+                                    >
+                                        <div className="w-10 h-10 rounded-full bg-[#FAF3E0] border border-[#C9A227]/60 flex items-center justify-center text-[#C9A227] mb-5 group-hover:bg-[#C9A227] group-hover:text-white transition-all">
+                                            <CheckCircle2 size={20} />
+                                        </div>
+                                        <h3 className="font-serif text-xl font-bold text-[#1A1A1A] mb-3 group-hover:text-[#8A6A16] transition-colors">
+                                            {item.headline}
+                                        </h3>
+                                        <p className="text-sm text-[#5C5850] leading-relaxed font-light">
+                                            {item.blurb}
+                                        </p>
+                                        <span className="absolute bottom-6 right-6 text-[#E8DFC8] group-hover:text-[#C9A227] transition-colors font-serif text-4xl font-bold opacity-30 group-hover:opacity-60">
+                                            0{idx + 1}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                );
+            })()}
+
+            {/* 7. TESTIMONIALS SLIDER */}
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-xl mx-auto mb-4">
@@ -291,7 +342,7 @@ export default function Home({
                 </div>
             </section>
 
-            {/* 7. RECENT JOURNAL ARTICLES */}
+            {/* 8. RECENT JOURNAL ARTICLES */}
             {recentPosts.length > 0 && (
                 <section className="py-20 bg-[#FBF6EC] border-t border-[#E8DFC8]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -303,7 +354,7 @@ export default function Home({
                                 </h2>
                             </div>
                             <Link
-                                href="/journal"
+                                href="/blog"
                                 className="mt-4 md:mt-0 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#8A6A16] hover:text-[#141414]"
                             >
                                 <span>Read All Articles</span>
@@ -315,7 +366,7 @@ export default function Home({
                             {recentPosts.map((post) => (
                                 <Link
                                     key={post.id}
-                                    href={`/journal/${post.slug}`}
+                                    href={`/blog/${post.slug}`}
                                     className="group bg-white rounded-2xl overflow-hidden border border-[#E8DFC8] shadow-sm hover:shadow-md transition-all duration-300"
                                 >
                                     <div className="aspect-[16/10] overflow-hidden bg-[#E8DFC8]">
@@ -327,7 +378,7 @@ export default function Home({
                                     </div>
                                     <div className="p-6">
                                         <div className="text-[11px] font-semibold uppercase tracking-wider text-[#8A6A16] mb-2">
-                                            {post.category?.name || 'Journal'}
+                                            {post.category?.name || 'Blog'}
                                         </div>
                                         <h3 className="font-serif text-lg font-bold text-[#1A1A1A] group-hover:text-[#8A6A16] transition-colors line-clamp-2 mb-2">
                                             {post.title}
@@ -343,7 +394,7 @@ export default function Home({
                 </section>
             )}
 
-            {/* 8. CTA SECTION */}
+            {/* 9. CTA SECTION */}
             <CTASection />
         </PublicLayout>
     );

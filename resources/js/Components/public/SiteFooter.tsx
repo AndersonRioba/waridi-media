@@ -101,23 +101,23 @@ export const SiteFooter: React.FC = () => {
                                 </Link>
                             </li>
                             <li>
+                                <Link href="/gallery" className="hover:text-[#E8C766] transition-colors">
+                                    Photo Gallery
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/services" className="hover:text-[#E8C766] transition-colors">
                                     Service Catalogue
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/about" className="hover:text-[#E8C766] transition-colors">
-                                    Our Story & Team
+                                    Our Story &amp; Team
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/livestream" className="hover:text-[#E8C766] transition-colors">
-                                    Livestream Broadcasts
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/journal" className="hover:text-[#E8C766] transition-colors">
-                                    Journal & Articles
+                                <Link href="/blog" className="hover:text-[#E8C766] transition-colors">
+                                    Blog &amp; Articles
                                 </Link>
                             </li>
                         </ul>

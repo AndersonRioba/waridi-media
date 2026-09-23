@@ -47,6 +47,20 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                 { label: 'Happy Clients', value: '1,800+' },
                 { label: 'Media Productions', value: '320+' },
             ],
+            why_choose_us: settings?.why_choose_us || [
+                {
+                    headline: 'Artistic Direction & Precision',
+                    blurb: 'Masterful studio illumination, vintage analog tones, and editorial refinement honoring every subject with effortless grace.',
+                },
+                {
+                    headline: 'Tailored to Your Vision',
+                    blurb: 'Personalized pre-shoot consultations ensuring every milestone, from intimate maternity portraits to major summits, reflects your identity.',
+                },
+                {
+                    headline: 'Archival Master Delivery',
+                    blurb: 'Museum-grade pigment canvas printing and cinema-grade 4K delivery crafted to endure across generations as family heirlooms.',
+                },
+            ],
             social_links: {
                 instagram: settings?.social_links?.instagram ?? 'https://www.instagram.com/waridiphotostudioruiru?igsi=Y2sxang5bzZ6bGpu',
                 facebook: settings?.social_links?.facebook ?? 'https://web.facebook.com/waridimedia?rdid=mljn9jOGkTB2w8VX&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1GGKEBi2FN%2F%3F_rdc%3D1%26_rdr',
@@ -95,6 +109,26 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
 
     const removeStat = (index: number) => {
         updateField('stats', data.settings.stats.filter((_: any, i: number) => i !== index));
+    };
+
+    const updateWhyChooseUs = (index: number, key: 'headline' | 'blurb', value: string) => {
+        const list = [...(data.settings.why_choose_us || [])];
+        list[index][key] = value;
+        updateField('why_choose_us', list);
+    };
+
+    const addWhyChooseUs = () => {
+        updateField('why_choose_us', [
+            ...(data.settings.why_choose_us || []),
+            { headline: 'New Value Proposition', blurb: 'Description of studio capability or customer commitment.' },
+        ]);
+    };
+
+    const removeWhyChooseUs = (index: number) => {
+        updateField(
+            'why_choose_us',
+            (data.settings.why_choose_us || []).filter((_: any, i: number) => i !== index)
+        );
     };
 
     const updateNavLink = (index: number, key: 'label' | 'href', value: string) => {
@@ -644,6 +678,61 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                                     >
                                         <Trash2 size={16} />
                                     </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Why Choose Us (3-Column Value Props) */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center justify-between pb-2 border-b border-[#E8DFC8]">
+                            <div>
+                                <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                    "Why Choose Us" Value Propositions
+                                </h2>
+                                <p className="text-xs text-[#5C5850] mt-0.5">
+                                    Clean 3-column value proposition section displayed on the homepage.
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={addWhyChooseUs}
+                                className="inline-flex items-center gap-1 text-xs text-[#8A6A16] font-semibold hover:text-[#141414]"
+                            >
+                                <Plus size={14} /> Add Proposition
+                            </button>
+                        </div>
+
+                        <div className="space-y-4">
+                            {(data.settings.why_choose_us || []).map((item: any, idx: number) => (
+                                <div
+                                    key={idx}
+                                    className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-3"
+                                >
+                                    <div className="flex items-center justify-between gap-3">
+                                        <input
+                                            type="text"
+                                            value={item.headline}
+                                            onChange={(e) => updateWhyChooseUs(idx, 'headline', e.target.value)}
+                                            placeholder="Headline e.g. Artistic Direction & Precision"
+                                            className="flex-1 px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-sm font-serif font-bold text-[#1A1A1A] bg-white"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => removeWhyChooseUs(idx)}
+                                            className="p-1.5 text-red-600 hover:text-red-800"
+                                            title="Delete Proposition"
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
+                                    <textarea
+                                        rows={2}
+                                        value={item.blurb}
+                                        onChange={(e) => updateWhyChooseUs(idx, 'blurb', e.target.value)}
+                                        placeholder="One-line blurb explaining this commitment to clients..."
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs text-[#5C5850] bg-white leading-relaxed"
+                                    />
                                 </div>
                             ))}
                         </div>

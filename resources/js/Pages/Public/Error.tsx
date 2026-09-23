@@ -130,12 +130,8 @@ export default function Error({ status = 404 }: ErrorProps) {
                                 About Waridi
                             </Link>
                             <span className="text-[#D3C7AB]">•</span>
-                            <Link href="/livestream" className="hover:text-[#C9A227] transition-colors underline-offset-4 hover:underline">
-                                Live Broadcasts
-                            </Link>
-                            <span className="text-[#D3C7AB]">•</span>
-                            <Link href="/journal" className="hover:text-[#C9A227] transition-colors underline-offset-4 hover:underline">
-                                Journal & Stories
+                            <Link href="/blog" className="hover:text-[#C9A227] transition-colors underline-offset-4 hover:underline">
+                                Blog & Stories
                             </Link>
                         </div>
                     </div>

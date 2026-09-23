@@ -20,7 +20,27 @@ export interface ProjectMedia {
     type: 'image' | 'video';
     path_or_url: string;
     caption?: string | null;
+    featured_in_gallery?: boolean;
     sort_order: number;
+}
+
+export interface Client {
+    id: number;
+    name: string;
+    logo: string;
+    website_url?: string | null;
+    sort_order: number;
+    is_active: boolean;
+    created_at?: string;
+}
+
+export interface Faq {
+    id: number;
+    question: string;
+    answer: string;
+    sort_order: number;
+    is_active: boolean;
+    created_at?: string;
 }
 
 export interface Project {

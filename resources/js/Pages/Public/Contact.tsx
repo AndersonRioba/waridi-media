@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import { PublicLayout } from '@/Layouts/PublicLayout';
 import { GoldDivider } from '@/Components/public/GoldDivider';
-import { Service } from '@/types';
+import { FAQAccordion } from '@/Components/public/FAQAccordion';
+import { Service, Faq } from '@/types';
 import { MapPin, Phone, Mail, Clock, Send, Sparkles, CheckCircle2 } from 'lucide-react';
 import { InstagramIcon, FacebookIcon, TiktokIcon } from '@/Components/public/SocialIcons';
 
 interface ContactProps {
     services: Service[];
+    faqs: Faq[];
     settings: Record<string, any>;
 }
 
-export default function Contact({ services, settings }: ContactProps) {
+export default function Contact({ services, faqs, settings }: ContactProps) {
     const email = settings?.contact_email || 'info@waridimedia.com';
     const phone = settings?.contact_phone || '+254 700 123 456';
     const address = settings?.address || 'Nairobi, Kenya';
@@ -52,6 +54,15 @@ export default function Contact({ services, settings }: ContactProps) {
                     </p>
                 </div>
             </section>
+
+            {/* FAQ Accordion — above contact form */}
+            {faqs && faqs.length > 0 && (
+                <section className="py-16 bg-[#FBF6EC] border-b border-[#E8DFC8]">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <FAQAccordion faqs={faqs} />
+                    </div>
+                </section>
+            )}
 
             {/* Main Contact Grid */}
             <section className="py-20 bg-white">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\InquiryStatus;
 use App\Http\Requests\InquiryStoreRequest;
+use App\Models\Faq;
 use App\Models\Inquiry;
 use App\Models\Service;
 use App\Models\Setting;
@@ -16,10 +17,12 @@ class ContactController extends Controller
     public function show(): Response
     {
         $services = Service::active()->get(['id', 'title', 'service_group', 'slug']);
+        $faqs = Faq::active()->get();
         $settings = Setting::getAll();
 
         return Inertia::render('Public/Contact', [
             'services' => $services,
+            'faqs' => $faqs,
             'settings' => $settings,
         ]);
     }

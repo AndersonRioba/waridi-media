@@ -14,17 +14,17 @@ interface BlogIndexProps {
 
 export default function BlogIndex({ posts, categories, selectedCategory }: BlogIndexProps) {
     const handleCategoryFilter = (slug?: string) => {
-        router.get('/journal', { category: slug || undefined }, { preserveState: true });
+        router.get('/blog', { category: slug || undefined }, { preserveState: true });
     };
 
     return (
-        <PublicLayout title="The Studio Journal">
+        <PublicLayout title="Studio Blog & Articles">
             {/* Hero */}
             <section className="bg-[#FBF6EC] py-20 border-b border-[#E8DFC8]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <GoldDivider label="STORIES & INSIGHTS" diamondSize={5} className="mb-3" />
                     <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-[#1A1A1A] tracking-tight">
-                        The Waridi Journal
+                        The Waridi Blog
                     </h1>
                     <p className="mt-4 text-base sm:text-lg text-[#5C5850] max-w-2xl mx-auto font-light leading-relaxed">
                         Behind-the-scenes techniques, lighting theory, client preparation guides, and stories from the darkroom.
@@ -83,7 +83,7 @@ export default function BlogIndex({ posts, categories, selectedCategory }: BlogI
                             {posts.data.map((post) => (
                                 <Link
                                     key={post.id}
-                                    href={`/journal/${post.slug}`}
+                                    href={`/blog/${post.slug}`}
                                     className="group bg-[#FFFFFF] rounded-2xl overflow-hidden border border-[#E8DFC8] hover:border-[#C9A227] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
                                 >
                                     <div>
@@ -124,7 +124,7 @@ export default function BlogIndex({ posts, categories, selectedCategory }: BlogI
                         </div>
                     ) : (
                         <div className="text-center py-20 bg-[#FBF6EC] rounded-2xl border border-[#E8DFC8] max-w-xl mx-auto">
-                            <p className="font-serif text-2xl text-[#1A1A1A]">No journal entries found</p>
+                            <p className="font-serif text-2xl text-[#1A1A1A]">No blog posts found</p>
                         </div>
                     )}
                 </div>

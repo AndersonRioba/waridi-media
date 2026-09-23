@@ -81,6 +81,7 @@ class ProjectController extends Controller
                     'type' => $item['type'],
                     'path_or_url' => $item['path_or_url'],
                     'caption' => $item['caption'] ?? null,
+                    'featured_in_gallery' => $item['featured_in_gallery'] ?? false,
                     'sort_order' => $i + 1,
                 ]);
             }
@@ -121,6 +122,7 @@ class ProjectController extends Controller
                     'type' => $item['type'],
                     'path_or_url' => $item['path_or_url'],
                     'caption' => $item['caption'] ?? null,
+                    'featured_in_gallery' => $item['featured_in_gallery'] ?? false,
                     'sort_order' => $i + 1,
                 ]);
             }

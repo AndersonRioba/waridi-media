@@ -35,6 +35,7 @@ class ProjectRequest extends FormRequest
             'media.*.type' => ['required', 'string', 'in:image,video'],
             'media.*.path_or_url' => ['required', 'string'],
             'media.*.caption' => ['nullable', 'string', 'max:255'],
+            'media.*.featured_in_gallery' => ['nullable', 'boolean'],
             'media.*.sort_order' => ['nullable', 'integer'],
         ];
     }

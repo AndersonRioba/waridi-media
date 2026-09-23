@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\LivestreamEventController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -33,6 +35,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     // Livestream
     Route::resource('livestream', LivestreamEventController::class)->except(['show']);
+
+    // Clients / Partners
+    Route::resource('clients', ClientController::class)->except(['show']);
+
+    // FAQs
+    Route::resource('faqs', FaqController::class)->except(['show']);
 
     // Inquiries
     Route::get('inquiries', [InquiryController::class, 'index'])->name('inquiries.index');

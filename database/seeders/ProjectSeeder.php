@@ -206,6 +206,7 @@ class ProjectSeeder extends Seeder
                     'type' => $mediaItem['type'],
                     'path_or_url' => $mediaItem['path_or_url'],
                     'caption' => $mediaItem['caption'],
+                    'featured_in_gallery' => $mediaItem['featured_in_gallery'] ?? ($mediaItem['type'] === 'image'),
                     'sort_order' => $i + 1,
                 ]);
             }

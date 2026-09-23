@@ -18,6 +18,8 @@ import {
     X,
     CheckCircle2,
     AlertCircle,
+    Building2,
+    HelpCircle,
 } from 'lucide-react';
 
 interface AdminLayoutProps {
@@ -52,6 +54,8 @@ export const AdminLayout: React.FC<PropsWithChildren<AdminLayoutProps>> = ({
         { label: 'Livestream Events', href: '/admin/livestream', icon: Radio },
         { label: 'Studio Team', href: '/admin/team', icon: Users },
         { label: 'Testimonials', href: '/admin/testimonials', icon: Quote },
+        { label: 'Clients & Partners', href: '/admin/clients', icon: Building2 },
+        { label: 'Studio FAQs', href: '/admin/faqs', icon: HelpCircle },
         { label: 'Journal Articles', href: '/admin/blog', icon: FileText },
         ...(isAdmin
             ? [

@@ -90,83 +90,161 @@ export default function Services({
                 {description}
             </p>
 
-            {/* Two-Column Icon List with Gold Dividers */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                {services.map((service) => {
-                    const isExpanded = expandedServiceId === service.id;
+            {/* Two independent columns — expanding one never shifts the other */}
+            <div className="flex flex-col sm:flex-row gap-x-8">
+                {/* Left column: even-indexed services */}
+                <div className="flex-1 flex flex-col gap-y-0">
+                    {services
+                        .filter((_, i) => i % 2 === 0)
+                        .map((service) => {
+                            const isExpanded = expandedServiceId === service.id;
 
-                    return (
-                        <div
-                            key={service.id}
-                            className="border-b border-[#E8DFC8]/60 pb-3 transition-colors hover:border-[#C9A227]"
-                        >
-                            <div
-                                onClick={() => toggleExpand(service.id)}
-                                className="flex items-center justify-between cursor-pointer py-2 group"
-                            >
-                                <div className="flex items-center gap-3">
-                                    <div className="text-[#141414] group-hover:text-[#8A6A16] transition-colors">
-                                        {iconMap[service.icon] || <Camera size={20} />}
-                                    </div>
-                                    <span className="text-sm font-semibold text-[#1A1A1A] group-hover:text-[#8A6A16] transition-colors">
-                                        {service.title}
-                                    </span>
-                                </div>
-                                <div className="text-[#8A6A16] transition-transform">
-                                    {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                                </div>
-                            </div>
-
-                            {/* Expandable Details Drawer */}
-                            {isExpanded && (
-                                <div className="mt-2.5 p-4 rounded-xl bg-[#FBF6EC] text-xs text-[#5C5850] animate-in fade-in duration-200">
-                                    {service.description && (
-                                        <p className="leading-relaxed mb-3">{service.description}</p>
-                                    )}
-
-                                    {service.deliverables && service.deliverables.length > 0 && (
-                                        <div className="mb-3 space-y-1">
-                                            <span className="font-semibold text-[#8A6A16] uppercase tracking-wider text-[10px] block">
-                                                Includes:
+                            return (
+                                <div
+                                    key={service.id}
+                                    className="border-b border-[#E8DFC8]/60 pb-3 transition-colors hover:border-[#C9A227]"
+                                >
+                                    <div
+                                        onClick={() => toggleExpand(service.id)}
+                                        className="flex items-center justify-between cursor-pointer py-2 group"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="text-[#141414] group-hover:text-[#8A6A16] transition-colors">
+                                                {iconMap[service.icon] || <Camera size={20} />}
+                                            </div>
+                                            <span className="text-sm font-semibold text-[#1A1A1A] group-hover:text-[#8A6A16] transition-colors">
+                                                {service.title}
                                             </span>
-                                            {service.deliverables.map((deliv, idx) => (
-                                                <div key={idx} className="flex items-center gap-2">
-                                                    <Check size={12} className="text-[#C9A227] shrink-0" />
-                                                    <span>{deliv}</span>
+                                        </div>
+                                        <div className="text-[#8A6A16]">
+                                            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                                        </div>
+                                    </div>
+
+                                    {isExpanded && (
+                                        <div className="mt-2.5 p-4 rounded-xl bg-[#FBF6EC] text-xs text-[#5C5850] animate-in fade-in duration-200">
+                                            {service.description && (
+                                                <p className="leading-relaxed mb-3">{service.description}</p>
+                                            )}
+                                            {service.deliverables && service.deliverables.length > 0 && (
+                                                <div className="mb-3 space-y-1">
+                                                    <span className="font-semibold text-[#8A6A16] uppercase tracking-wider text-[10px] block">
+                                                        Includes:
+                                                    </span>
+                                                    {service.deliverables.map((deliv, idx) => (
+                                                        <div key={idx} className="flex items-center gap-2">
+                                                            <Check size={12} className="text-[#C9A227] shrink-0" />
+                                                            <span>{deliv}</span>
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
+                                            )}
+                                            {showPricing && service.starting_price && (
+                                                <div className="pt-2 border-t border-[#E8DFC8] flex items-center justify-between">
+                                                    <span className="text-[11px] text-[#5C5850]">Starting from</span>
+                                                    <span className="font-semibold text-[#8A6A16] text-sm">
+                                                        {service.starting_price}
+                                                    </span>
+                                                </div>
+                                            )}
+                                            <div className="mt-3 flex items-center justify-between pt-2 border-t border-[#E8DFC8]/60">
+                                                <Link
+                                                    href={`/portfolio?category=${service.service_group}`}
+                                                    className="text-[11px] font-semibold text-[#8A6A16] hover:underline"
+                                                >
+                                                    View Sample Work →
+                                                </Link>
+                                                <Link
+                                                    href="/contact"
+                                                    className="px-3.5 py-1.5 bg-[#141414] text-[#FAF6EC] border border-[#C9A227]/60 hover:bg-[#C9A227] hover:text-white rounded-none text-[11px] font-semibold uppercase tracking-wider shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all"
+                                                >
+                                                    Inquire
+                                                </Link>
+                                            </div>
                                         </div>
                                     )}
+                                </div>
+                            );
+                        })}
+                </div>
 
-                                    {showPricing && service.starting_price && (
-                                        <div className="pt-2 border-t border-[#E8DFC8] flex items-center justify-between">
-                                            <span className="text-[11px] text-[#5C5850]">Starting from</span>
-                                            <span className="font-semibold text-[#8A6A16] text-sm">
-                                                {service.starting_price}
+                {/* Right column: odd-indexed services */}
+                <div className="flex-1 flex flex-col gap-y-0">
+                    {services
+                        .filter((_, i) => i % 2 !== 0)
+                        .map((service) => {
+                            const isExpanded = expandedServiceId === service.id;
+
+                            return (
+                                <div
+                                    key={service.id}
+                                    className="border-b border-[#E8DFC8]/60 pb-3 transition-colors hover:border-[#C9A227]"
+                                >
+                                    <div
+                                        onClick={() => toggleExpand(service.id)}
+                                        className="flex items-center justify-between cursor-pointer py-2 group"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="text-[#141414] group-hover:text-[#8A6A16] transition-colors">
+                                                {iconMap[service.icon] || <Camera size={20} />}
+                                            </div>
+                                            <span className="text-sm font-semibold text-[#1A1A1A] group-hover:text-[#8A6A16] transition-colors">
+                                                {service.title}
                                             </span>
                                         </div>
-                                    )}
-
-                                    <div className="mt-3 flex items-center justify-between pt-2 border-t border-[#E8DFC8]/60">
-                                        <Link
-                                            href={`/portfolio?category=${service.service_group}`}
-                                            className="text-[11px] font-semibold text-[#8A6A16] hover:underline"
-                                        >
-                                            View Sample Work →
-                                        </Link>
-                                        <Link
-                                            href="/contact"
-                                            className="px-3.5 py-1.5 bg-[#141414] text-[#FAF6EC] border border-[#C9A227]/60 hover:bg-[#C9A227] hover:text-white rounded-none text-[11px] font-semibold uppercase tracking-wider shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all"
-                                        >
-                                            Inquire
-                                        </Link>
+                                        <div className="text-[#8A6A16]">
+                                            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                                        </div>
                                     </div>
+
+                                    {isExpanded && (
+                                        <div className="mt-2.5 p-4 rounded-xl bg-[#FBF6EC] text-xs text-[#5C5850] animate-in fade-in duration-200">
+                                            {service.description && (
+                                                <p className="leading-relaxed mb-3">{service.description}</p>
+                                            )}
+                                            {service.deliverables && service.deliverables.length > 0 && (
+                                                <div className="mb-3 space-y-1">
+                                                    <span className="font-semibold text-[#8A6A16] uppercase tracking-wider text-[10px] block">
+                                                        Includes:
+                                                    </span>
+                                                    {service.deliverables.map((deliv, idx) => (
+                                                        <div key={idx} className="flex items-center gap-2">
+                                                            <Check size={12} className="text-[#C9A227] shrink-0" />
+                                                            <span>{deliv}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                            {showPricing && service.starting_price && (
+                                                <div className="pt-2 border-t border-[#E8DFC8] flex items-center justify-between">
+                                                    <span className="text-[11px] text-[#5C5850]">Starting from</span>
+                                                    <span className="font-semibold text-[#8A6A16] text-sm">
+                                                        {service.starting_price}
+                                                    </span>
+                                                </div>
+                                            )}
+                                            <div className="mt-3 flex items-center justify-between pt-2 border-t border-[#E8DFC8]/60">
+                                                <Link
+                                                    href={`/portfolio?category=${service.service_group}`}
+                                                    className="text-[11px] font-semibold text-[#8A6A16] hover:underline"
+                                                >
+                                                    View Sample Work →
+                                                </Link>
+                                                <Link
+                                                    href="/contact"
+                                                    className="px-3.5 py-1.5 bg-[#141414] text-[#FAF6EC] border border-[#C9A227]/60 hover:bg-[#C9A227] hover:text-white rounded-none text-[11px] font-semibold uppercase tracking-wider shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all"
+                                                >
+                                                    Inquire
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                    );
-                })}
+                            );
+                        })}
+                </div>
             </div>
+
         </div>
     );
 

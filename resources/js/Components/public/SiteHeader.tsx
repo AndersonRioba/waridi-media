@@ -22,10 +22,10 @@ export const SiteHeader: React.FC = () => {
 
     const defaultNavLinks = [
         { label: 'Work', href: '/portfolio' },
+        { label: 'Gallery', href: '/gallery' },
         { label: 'Services', href: '/services' },
         { label: 'About', href: '/about' },
-        { label: 'Livestream', href: '/livestream' },
-        { label: 'Journal', href: '/journal' },
+        { label: 'Blog', href: '/blog' },
         { label: 'Contact', href: '/contact' },
     ];
 
@@ -41,7 +41,8 @@ export const SiteHeader: React.FC = () => {
 
     const isActive = (href: string) => {
         if (href === '/portfolio' && url.startsWith('/portfolio')) return true;
-        if (href === '/journal' && url.startsWith('/journal')) return true;
+        if (href === '/gallery' && url.startsWith('/gallery')) return true;
+        if (href === '/blog' && url.startsWith('/blog')) return true;
         return url === href;
     };
 

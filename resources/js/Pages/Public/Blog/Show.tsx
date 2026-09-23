@@ -18,11 +18,11 @@ export default function BlogShow({ post, recentPosts = [] }: BlogShowProps) {
             <div className="bg-[#FBF6EC] border-b border-[#E8DFC8]">
                 <div className="max-w-4xl mx-auto px-6 py-4">
                     <Link
-                        href="/journal"
+                        href="/blog"
                         className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#8A6A16] hover:text-[#141414]"
                     >
                         <ArrowLeft size={14} />
-                        <span>Back to Journal</span>
+                        <span>Back to Blog</span>
                     </Link>
                 </div>
             </div>
@@ -85,14 +85,14 @@ export default function BlogShow({ post, recentPosts = [] }: BlogShowProps) {
                         <div className="text-center mb-10">
                             <GoldDivider label="CONTINUE READING" diamondSize={5} className="mb-2" />
                             <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
-                                More from the Journal
+                                More from the Blog
                             </h3>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {recentPosts.map((rPost) => (
                                 <Link
                                     key={rPost.id}
-                                    href={`/journal/${rPost.slug}`}
+                                    href={`/blog/${rPost.slug}`}
                                     className="bg-white rounded-xl overflow-hidden border border-[#E8DFC8] p-4 group"
                                 >
                                     <h4 className="font-serif font-bold text-sm text-[#1A1A1A] group-hover:text-[#8A6A16] transition-colors line-clamp-2 mb-2">

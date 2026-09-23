@@ -24,6 +24,20 @@ class SettingSeeder extends Seeder
                 ['label' => 'Happy Clients Served', 'value' => '1,800+'],
                 ['label' => 'Media Productions', 'value' => '320+'],
             ],
+            'why_choose_us' => [
+                [
+                    'headline' => 'Artistic Direction & Precision',
+                    'blurb' => 'Masterful studio illumination, vintage analog tones, and editorial refinement honoring every subject with effortless grace.',
+                ],
+                [
+                    'headline' => 'Tailored to Your Vision',
+                    'blurb' => 'Personalized pre-shoot consultations ensuring every milestone, from intimate maternity portraits to major summits, reflects your identity.',
+                ],
+                [
+                    'headline' => 'Archival Master Delivery',
+                    'blurb' => 'Museum-grade pigment canvas printing and cinema-grade 4K delivery crafted to endure across generations as family heirlooms.',
+                ],
+            ],
             'social_links' => [
                 'instagram' => 'https://instagram.com/waridimedia',
                 'facebook' => 'https://facebook.com/waridimedia',

@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: 'Playfair Display', Georgia, serif;
+  /* Google Sans Flex — variable font (opsz 6-144, wght 1-1000) */
+  /* Editorial/display headings: large opsz gives a refined, high-contrast letterform */
+  --font-serif: 'Google Sans Flex', system-ui, sans-serif;
+  /* Script tagline: Great Vibes */
   --font-script: 'Great Vibes', cursive;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Body / UI text: smaller opsz gives clean, legible text face */
+  --font-sans: 'Google Sans Flex', system-ui, -apple-system, sans-serif;
 
   --color-brand-bg: #FFFFFF;
   --color-brand-cream: #FBF6EC;
@@ -37,17 +41,24 @@
   --color-live: #C9432E;
 }
 
-/* Custom Typography & Gradients */
+/* Google Sans Flex — editorial display headings
+   Large optical size + heavy weight gives editorial presence */
 .font-serif {
-  font-family: var(--font-serif);
+  font-family: 'Google Sans Flex', system-ui, sans-serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 48;
 }
 
 .font-script {
   font-family: var(--font-script);
 }
 
+/* Google Sans Flex — body / UI text
+   Smaller optical size keeps it clean and legible at text sizes */
 .font-sans {
-  font-family: var(--font-sans);
+  font-family: 'Google Sans Flex', system-ui, -apple-system, sans-serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 14;
 }
 
 .gold-gradient-text {
@@ -100,5 +111,26 @@ html {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Trust Strip Marquee */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee:focus-within {
+  animation-play-state: paused;
 }
 

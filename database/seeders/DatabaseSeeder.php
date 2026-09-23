@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             LivestreamEventSeeder::class,
             BlogSeeder::class,
             InquirySeeder::class,
+            ClientSeeder::class,
+            FaqSeeder::class,
             SettingSeeder::class,
         ]);
     }

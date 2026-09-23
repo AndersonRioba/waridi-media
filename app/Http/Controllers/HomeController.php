@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\Client;
 use App\Models\LivestreamEvent;
 use App\Models\Project;
 use App\Models\Service;
@@ -49,6 +50,7 @@ class HomeController extends Controller
         $recentPosts = BlogPost::with('author', 'category')->published()->take(3)->get();
         $activeLive = LivestreamEvent::live()->first();
         $settings = Setting::getAll();
+        $clients = Client::active()->orderBy('sort_order')->get(['id', 'name', 'logo', 'website_url']);
 
         return Inertia::render('Public/Home', [
             'featuredProjects' => $featuredProjects,
@@ -57,6 +59,7 @@ class HomeController extends Controller
             'recentPosts' => $recentPosts,
             'activeLive' => $activeLive,
             'settings' => $settings,
+            'clients' => $clients,
         ]);
     }
 }

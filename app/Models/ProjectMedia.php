@@ -15,14 +15,21 @@ class ProjectMedia extends Model
         'type',
         'path_or_url',
         'caption',
+        'featured_in_gallery',
         'sort_order',
     ];
 
     protected function casts(): array
     {
         return [
+            'featured_in_gallery' => 'boolean',
             'sort_order' => 'integer',
         ];
+    }
+
+    public function scopeFeaturedInGallery($query)
+    {
+        return $query->where('featured_in_gallery', true);
     }
 
     public function project(): BelongsTo

@@ -333,6 +333,15 @@ export default function ProjectsEdit({ project, tags }: ProjectsEditProps) {
                                             placeholder="Caption / Description"
                                             className="w-full sm:w-48 px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
                                         />
+                                        <label className="flex items-center gap-1.5 text-[11px] text-[#5C5850] shrink-0 cursor-pointer px-1">
+                                            <input
+                                                type="checkbox"
+                                                checked={Boolean(item.featured_in_gallery)}
+                                                onChange={(e) => updateMediaItem(idx, 'featured_in_gallery', e.target.checked)}
+                                                className="w-3.5 h-3.5 rounded text-[#C9A227] focus:ring-[#C9A227]"
+                                            />
+                                            <span>In Gallery</span>
+                                        </label>
                                         <button
                                             type="button"
                                             onClick={() => removeMediaItem(idx)}
