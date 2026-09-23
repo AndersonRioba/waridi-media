@@ -53,11 +53,49 @@ require __DIR__.'/auth.php';
 //   /run-seed?secret=YOUR_SECRET
 // ──────────────────────────────────────────────────────────────
 
-/** Helper: abort with styled 403 if secret doesn't match */
+/** Helper: abort with styled 403/help if secret doesn't match */
 $guardUtility = function (\Illuminate\Http\Request $request): void {
-    $expected = env('UTILITY_SECRET');
-    if (! $expected || ! hash_equals($expected, (string) $request->query('secret', ''))) {
-        abort(403, 'Forbidden — valid ?secret= required.');
+    // 1. Try config first (cached or uncached)
+    $expected = config('app.utility_secret');
+
+    // 2. Try env(), $_ENV, or $_SERVER
+    if (! $expected) {
+        $expected = env('UTILITY_SECRET') ?: ($_ENV['UTILITY_SECRET'] ?? ($_SERVER['UTILITY_SECRET'] ?? null));
+    }
+
+    // 3. Fallback: Parse .env directly in case config:cache stripped env() calls
+    if (! $expected && file_exists(base_path('.env'))) {
+        $envContent = @file_get_contents(base_path('.env'));
+        if ($envContent && preg_match('/^UTILITY_SECRET=(.*)$/m', $envContent, $matches)) {
+            $expected = trim($matches[1], " \t\n\r\0\x0B\"'");
+        }
+    }
+
+    // 4. Fallback: Allow using APP_KEY from config/env as the secret
+    $appKey = config('app.key') ?: env('APP_KEY');
+
+    $provided = (string) $request->query('secret', '');
+
+    $authorized = false;
+    if ($expected && hash_equals((string) $expected, $provided)) {
+        $authorized = true;
+    } elseif ($appKey && hash_equals((string) $appKey, $provided)) {
+        $authorized = true;
+    }
+
+    if (! $authorized) {
+        $hasSecretConfigured = ! empty($expected) || ! empty($appKey);
+        $hint = $hasSecretConfigured
+            ? 'The ?secret= parameter did not match. Please verify your UTILITY_SECRET in .env (or you can use your APP_KEY).'
+            : 'No UTILITY_SECRET found in your production .env file. Please add UTILITY_SECRET=your_secret to .env or pass your APP_KEY as ?secret=...';
+
+        abort(response(
+            '<pre style="background:#161b22;color:#f85149;padding:24px 28px;font-family:monospace;font-size:13px;line-height:1.7;margin:0;border-left:4px solid #da3633;">'
+            . "403 Forbidden\n\n"
+            . htmlspecialchars($hint)
+            . '</pre>',
+            403
+        ));
     }
 };
 
