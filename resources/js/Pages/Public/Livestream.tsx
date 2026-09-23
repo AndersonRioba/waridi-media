@@ -23,16 +23,20 @@ export default function Livestream({
     return (
         <PublicLayout title="Live Broadcasts & Streaming">
             {/* Hero */}
-            <section className="bg-[#141414] text-white py-20 border-b border-[#2A2A2A]">
+            <section className="bg-white py-20 border-b border-[#E8DFC8]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C9432E]/20 border border-[#C9432E]/50 text-[#F57362] text-xs uppercase tracking-widest font-semibold mb-4">
+                    <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs uppercase tracking-widest font-semibold mb-4 border ${
+                        hasLive
+                            ? 'bg-[#C9432E]/10 border-[#C9432E]/30 text-[#C9432E]'
+                            : 'bg-[#C9A227]/15 border-[#C9A227]/40 text-[#8A6A16]'
+                    }`}>
                         <Radio size={14} className={hasLive ? 'animate-pulse text-[#C9432E]' : ''} />
                         <span>{hasLive ? 'Broadcast Live Now' : 'Broadcast Schedule'}</span>
                     </div>
-                    <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white">
+                    <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#C9A227]">
                         Hybrid Events & 4K Livestreaming
                     </h1>
-                    <p className="mt-4 text-base sm:text-lg text-[#A8A49C] max-w-2xl mx-auto font-light leading-relaxed">
+                    <p className="mt-4 text-base sm:text-lg text-[#5C5850] max-w-2xl mx-auto font-normal leading-relaxed">
                         Broadcast-grade multi-camera coverage with redundant cellular bonding, real-time lower-thirds, and pristine multi-channel audio.
                     </p>
                 </div>
