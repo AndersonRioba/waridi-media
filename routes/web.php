@@ -115,8 +115,17 @@ Route::get('/run-seed', function (\Illuminate\Http\Request $request) use ($guard
 
     $results = ['[' . now()->toDateTimeString() . '] Running database seeders...', ''];
 
+    $params = ['--force' => true];
+    if ($class = $request->query('class')) {
+        // Support either 'ClientSeeder' or full namespace 'Database\Seeders\ClientSeeder'
+        if (! str_contains($class, '\\')) {
+            $class = "Database\\Seeders\\{$class}";
+        }
+        $params['--class'] = $class;
+    }
+
     try {
-        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+        \Illuminate\Support\Facades\Artisan::call('db:seed', $params);
         $out = trim(\Illuminate\Support\Facades\Artisan::output()) ?: 'Seeding complete.';
         $results[] = $out;
     } catch (\Throwable $e) {
