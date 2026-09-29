@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
 import { ImageUploader } from '@/Components/admin/ImageUploader';
-import { Save, Plus, Trash2, Globe, Share2, Compass, LayoutTemplate, Sparkles, Layers, Image as ImageIcon } from 'lucide-react';
+import { Save, Plus, Trash2, Globe, Share2, Compass, LayoutTemplate, Sparkles, Layers, Image as ImageIcon, BookOpen } from 'lucide-react';
 
 interface SettingsEditProps {
     settings: Record<string, any>;
@@ -82,6 +82,28 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
             seo_default_title: settings?.seo_default_title || 'Waridi Photo Studio & Media',
             seo_default_description: settings?.seo_default_description || 'Where Moments Become Memories',
             seo_default_og_image: settings?.seo_default_og_image || '',
+            // About Page
+            about_hero_eyebrow: settings?.about_hero_eyebrow || 'OUR HERITAGE',
+            about_hero_title: settings?.about_hero_title || 'Where Moments Become Memories',
+            about_hero_subtitle: settings?.about_hero_subtitle || 'Named after the Swahili word for rose, Waridi embodies elegance, enduring beauty, and photographic mastery.',
+            about_story_eyebrow: settings?.about_story_eyebrow || 'THE STUDIO STORY',
+            about_story_title: settings?.about_story_title || 'Capturing the Soul in Every Silhouette',
+            about_story_p1: settings?.about_story_p1 || 'Founded in Nairobi, Waridi Photo Studio was born out of a desire to break away from rushed, sterile photographic sessions. We believe that true portraiture is a collaborative dance between light, human emotion, and patience.',
+            about_story_p2: settings?.about_story_p2 || 'Over the years, our studio has expanded organically into commercial cinematography, live broadcast coverage, and fine-art printing—yet our core ethos remains unwavering: every moment captured must stand the test of generations.',
+            about_story_image: settings?.about_story_image || '',
+            about_values: settings?.about_values || [
+                { title: 'Authentic Connection', desc: 'We prioritize genuine comfort so your inner grace shines effortlessly.' },
+                { title: 'Archival Preservation', desc: 'Every print and digital negative is treated with museum-grade preservation standards.' },
+            ],
+            about_equipment: settings?.about_equipment || [
+                { title: 'Cameras & Optics', desc: 'Hasselblad medium format, Sony FX6 & FX3 cinema cameras, GM prime master lenses' },
+                { title: 'Studio Illumination', desc: 'Profoto D2 & B10X monoblocks, Broncolor parabolic reflectors, Matthews C-stands' },
+                { title: 'Broadcast & Streaming', desc: 'Blackmagic ATEM Constellation 4K, LiveU bonded cellular transmitters, Shure wireless audio' },
+                { title: 'Aerial Fleet', desc: 'DJI Inspire 3 & Mavic 3 Pro Cine with KCAA authorized commercial airspace licenses' },
+                { title: 'Archival Giclée Lab', desc: 'Epson SureColor 12-color archival pigment printer, museum rag & Hahnemühle papers' },
+            ],
+            about_cta_title: settings?.about_cta_title || 'Visit Our Studio Sanctuary',
+            about_cta_subtitle: settings?.about_cta_subtitle || 'Book an exploratory tour of our studios or schedule a creative consultation with our team.',
         },
     });
 
@@ -159,6 +181,31 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
 
     const removeOfferingItem = (index: number) => {
         updateField('offerings_items', data.settings.offerings_items.filter((_: any, i: number) => i !== index));
+    };
+
+    // About page helpers
+    const updateAboutValue = (index: number, key: 'title' | 'desc', value: string) => {
+        const list = [...(data.settings.about_values || [])];
+        list[index][key] = value;
+        updateField('about_values', list);
+    };
+    const addAboutValue = () => {
+        updateField('about_values', [...(data.settings.about_values || []), { title: 'New Value', desc: 'Description.' }]);
+    };
+    const removeAboutValue = (index: number) => {
+        updateField('about_values', (data.settings.about_values || []).filter((_: any, i: number) => i !== index));
+    };
+
+    const updateEquipment = (index: number, key: 'title' | 'desc', value: string) => {
+        const list = [...(data.settings.about_equipment || [])];
+        list[index][key] = value;
+        updateField('about_equipment', list);
+    };
+    const addEquipment = () => {
+        updateField('about_equipment', [...(data.settings.about_equipment || []), { title: 'New Capability', desc: 'Details about this capability.' }]);
+    };
+    const removeEquipment = (index: number) => {
+        updateField('about_equipment', (data.settings.about_equipment || []).filter((_: any, i: number) => i !== index));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -782,6 +829,169 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                                     onChange={(e) => updateField('seo_default_description', e.target.value)}
                                     className="w-full px-4 py-2 rounded-xl border border-[#E8DFC8] text-sm"
                                 />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ── About Page Content ─────────────────────────────── */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <BookOpen size={18} className="text-[#C9A227]" />
+                            <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">About Page Content</h2>
+                        </div>
+
+                        {/* Hero block */}
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-wider text-[#8A6A16] mb-3">Hero Block</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">Eyebrow Label</label>
+                                    <input type="text" value={data.settings.about_hero_eyebrow}
+                                        onChange={(e) => updateField('about_hero_eyebrow', e.target.value)}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">Hero Headline</label>
+                                    <input type="text" value={data.settings.about_hero_title}
+                                        onChange={(e) => updateField('about_hero_title', e.target.value)}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm" />
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">Hero Subtitle</label>
+                                <textarea rows={2} value={data.settings.about_hero_subtitle}
+                                    onChange={(e) => updateField('about_hero_subtitle', e.target.value)}
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm resize-none" />
+                            </div>
+                        </div>
+
+                        {/* Story block */}
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-wider text-[#8A6A16] mb-3">Studio Story Section</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">Section Eyebrow</label>
+                                    <input type="text" value={data.settings.about_story_eyebrow}
+                                        onChange={(e) => updateField('about_story_eyebrow', e.target.value)}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">Section Headline</label>
+                                    <input type="text" value={data.settings.about_story_title}
+                                        onChange={(e) => updateField('about_story_title', e.target.value)}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm" />
+                                </div>
+                            </div>
+                            <div className="mt-4 space-y-3">
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">Paragraph 1</label>
+                                    <textarea rows={3} value={data.settings.about_story_p1}
+                                        onChange={(e) => updateField('about_story_p1', e.target.value)}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm resize-none" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">Paragraph 2</label>
+                                    <textarea rows={3} value={data.settings.about_story_p2}
+                                        onChange={(e) => updateField('about_story_p2', e.target.value)}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm resize-none" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">Story Section Image</label>
+                                    <ImageUploader
+                                        value={data.settings.about_story_image}
+                                        onChange={(url) => updateField('about_story_image', url)}
+                                        label="Story Image"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Values cards */}
+                        <div>
+                            <div className="flex items-center justify-between mb-3">
+                                <p className="text-xs font-semibold uppercase tracking-wider text-[#8A6A16]">Studio Values Cards</p>
+                                <button type="button" onClick={addAboutValue}
+                                    className="inline-flex items-center gap-1 px-3 py-1.5 text-xs rounded-lg border border-[#C9A227] text-[#8A6A16] hover:bg-[#FBF6EC] transition-colors">
+                                    <Plus size={13} /> Add Value
+                                </button>
+                            </div>
+                            <div className="space-y-3">
+                                {(data.settings.about_values || []).map((item: any, idx: number) => (
+                                    <div key={idx} className="grid grid-cols-1 md:grid-cols-2 gap-3 p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8]">
+                                        <div>
+                                            <label className="block text-xs text-[#5C5850] mb-1">Title</label>
+                                            <input type="text" value={item.title}
+                                                onChange={(e) => updateAboutValue(idx, 'title', e.target.value)}
+                                                className="w-full px-3 py-2 rounded-lg border border-[#E8DFC8] text-sm" />
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <div className="flex-1">
+                                                <label className="block text-xs text-[#5C5850] mb-1">Description</label>
+                                                <input type="text" value={item.desc}
+                                                    onChange={(e) => updateAboutValue(idx, 'desc', e.target.value)}
+                                                    className="w-full px-3 py-2 rounded-lg border border-[#E8DFC8] text-sm" />
+                                            </div>
+                                            <button type="button" onClick={() => removeAboutValue(idx)}
+                                                className="mt-5 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                                <Trash2 size={15} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Equipment list */}
+                        <div>
+                            <div className="flex items-center justify-between mb-3">
+                                <p className="text-xs font-semibold uppercase tracking-wider text-[#8A6A16]">Capabilities & Equipment</p>
+                                <button type="button" onClick={addEquipment}
+                                    className="inline-flex items-center gap-1 px-3 py-1.5 text-xs rounded-lg border border-[#C9A227] text-[#8A6A16] hover:bg-[#FBF6EC] transition-colors">
+                                    <Plus size={13} /> Add Item
+                                </button>
+                            </div>
+                            <div className="space-y-3">
+                                {(data.settings.about_equipment || []).map((item: any, idx: number) => (
+                                    <div key={idx} className="grid grid-cols-1 md:grid-cols-2 gap-3 p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8]">
+                                        <div>
+                                            <label className="block text-xs text-[#5C5850] mb-1">Category Title</label>
+                                            <input type="text" value={item.title}
+                                                onChange={(e) => updateEquipment(idx, 'title', e.target.value)}
+                                                className="w-full px-3 py-2 rounded-lg border border-[#E8DFC8] text-sm" />
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <div className="flex-1">
+                                                <label className="block text-xs text-[#5C5850] mb-1">Description</label>
+                                                <input type="text" value={item.desc}
+                                                    onChange={(e) => updateEquipment(idx, 'desc', e.target.value)}
+                                                    className="w-full px-3 py-2 rounded-lg border border-[#E8DFC8] text-sm" />
+                                            </div>
+                                            <button type="button" onClick={() => removeEquipment(idx)}
+                                                className="mt-5 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                                <Trash2 size={15} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* CTA block */}
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-wider text-[#8A6A16] mb-3">Page CTA Block</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">CTA Headline</label>
+                                    <input type="text" value={data.settings.about_cta_title}
+                                        onChange={(e) => updateField('about_cta_title', e.target.value)}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">CTA Subtitle</label>
+                                    <input type="text" value={data.settings.about_cta_subtitle}
+                                        onChange={(e) => updateField('about_cta_subtitle', e.target.value)}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm" />
+                                </div>
                             </div>
                         </div>
                     </div>
