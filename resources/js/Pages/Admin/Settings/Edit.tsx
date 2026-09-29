@@ -19,7 +19,9 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
             hero_eyebrow: settings?.hero_eyebrow || 'EXPERIENCE THE MAGIC OF',
             hero_title: settings?.hero_title || 'WARIDI',
             hero_subline: settings?.hero_subline || 'PHOTO STUDIO & MEDIA',
-            hero_bg_image: settings?.hero_bg_image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=2000&q=85',
+            hero_bg_image: (settings?.hero_bg_image && !settings.hero_bg_image.includes('images.unsplash.com/photo-1534528741775'))
+                ? settings.hero_bg_image
+                : '/images/front-banner.webp',
             hero_cta_primary_text: settings?.hero_cta_primary_text || 'View Our Work',
             hero_cta_primary_link: settings?.hero_cta_primary_link || '/portfolio',
             hero_cta_secondary_text: settings?.hero_cta_secondary_text || 'Book a Session',
@@ -240,8 +242,8 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                         </div>
 
                         <ImageUploader
-                            label="Hero Background Image"
-                            description="Full-screen editorial background image with warm studio aesthetic"
+                            label="Homepage Hero Banner Image"
+                            description="Main studio banner graphic (defaults to /images/front-banner.webp)"
                             value={data.settings.hero_bg_image}
                             onChange={(url) => updateField('hero_bg_image', url)}
                         />

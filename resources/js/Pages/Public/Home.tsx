@@ -6,7 +6,7 @@ import { TestimonialSlider } from '@/Components/public/TestimonialSlider';
 import { CTASection } from '@/Components/public/CTASection';
 import { GoldDivider } from '@/Components/public/GoldDivider';
 import { BrandRoseIcon } from '@/Components/public/BrandLogo';
-import { TrustStrip } from '@/Components/public/TrustStrip';
+
 import { ServiceWordRotator } from '@/Components/public/ServiceWordRotator';
 import { Project, Service, Testimonial, BlogPost, LivestreamEvent, Client } from '@/types';
 import {
@@ -100,8 +100,6 @@ export default function Home({
                 {/* Hero Content */}
                 <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center flex flex-col items-center">
 
-
-
                     {/* Eyebrow Label */}
                     {heroEyebrow && (
                         <GoldDivider label={heroEyebrow} diamondSize={5} className="mb-3" />
@@ -121,12 +119,9 @@ export default function Home({
                         </div>
                     )}
 
-                    {/* Service Word Rotator — cycling gold service names */}
-                    <ServiceWordRotator className="mt-3 mb-1" />
-
                     {/* Calligraphic Script Tagline */}
                     {settings?.tagline && (
-                        <p className="font-script text-3xl sm:text-4xl md:text-5xl text-[#C9A227] mt-2 mb-8">
+                        <p className="font-script text-3xl sm:text-4xl md:text-5xl text-[#C9A227] mt-4 mb-8">
                             {settings.tagline}
                         </p>
                     )}
@@ -151,8 +146,6 @@ export default function Home({
                 </div>
             </section>
 
-            {/* 2. TRUST STRIP — auto-scrolling client logos */}
-            <TrustStrip clients={clients} />
 
             {/* 3. SERVICES ICON STRIP (Faithful to Brand Collateral) */}
             <section className="bg-white border-y border-[#E8DFC8] py-8 relative z-20">
