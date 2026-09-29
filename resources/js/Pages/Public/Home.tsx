@@ -90,11 +90,10 @@ export default function Home({
                     <img
                         src={heroBgImage}
                         alt="Waridi Studio Luxury Portraiture"
-                        className="w-full h-full object-cover object-center opacity-35 filter contrast-[1.05]"
+                        className="w-full h-full object-cover object-center opacity-65 filter contrast-[1.08] saturate-[1.05]"
                     />
-                    {/* Cream Gradients for visual hierarchy & text contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#FBF6EC] via-[#FBF6EC]/70 to-[#FBF6EC]/40" />
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#FBF6EC]/40 to-[#FBF6EC]" />
+                    {/* Light scrim — just enough to keep text legible */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#FBF6EC]/90 via-[#FBF6EC]/30 to-transparent" />
                 </div>
 
                 {/* Hero Content */}
