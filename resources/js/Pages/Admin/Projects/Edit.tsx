@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
 import { ImageUploader } from '@/Components/admin/ImageUploader';
+import { RichTextEditor } from '@/Components/admin/RichTextEditor';
 import { Project, Tag } from '@/types';
 import { ArrowLeft, Plus, Trash2, Upload, Loader2 } from 'lucide-react';
 
@@ -232,14 +233,14 @@ export default function ProjectsEdit({ project, tags }: ProjectsEditProps) {
                         </div>
 
                         <div>
-                            <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
-                                Case Study Content
-                            </label>
-                            <textarea
-                                rows={5}
+                            <RichTextEditor
+                                label="Case Study Content"
+                                id="project-body-edit"
                                 value={data.body}
-                                onChange={(e) => setData('body', e.target.value)}
-                                className="w-full px-4 py-2 rounded-xl border border-[#E8DFC8] text-sm"
+                                onChange={(html) => setData('body', html)}
+                                placeholder="Describe the creative brief, technical approach, deliverables and outcome…"
+                                minHeight={240}
+                                error={errors.body}
                             />
                         </div>
                     </div>

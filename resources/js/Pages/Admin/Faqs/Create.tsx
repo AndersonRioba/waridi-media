@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, Link } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
+import { RichTextEditor } from '@/Components/admin/RichTextEditor';
 import { ArrowLeft, Save } from 'lucide-react';
 
 export default function FaqsCreate() {
@@ -53,18 +54,16 @@ export default function FaqsCreate() {
                     </div>
 
                     <div>
-                        <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
-                            Answer *
-                        </label>
-                        <textarea
-                            rows={5}
+                        <RichTextEditor
+                            label="Answer"
                             required
+                            id="faq-answer"
                             value={data.answer}
-                            onChange={(e) => setData('answer', e.target.value)}
-                            placeholder="Provide a comprehensive and welcoming response..."
-                            className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227]"
+                            onChange={(html) => setData('answer', html)}
+                            placeholder="Provide a comprehensive and welcoming response. Use bold, lists or links where helpful…"
+                            minHeight={180}
+                            error={errors.answer}
                         />
-                        {errors.answer && <p className="text-xs text-red-600 mt-1">{errors.answer}</p>}
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">

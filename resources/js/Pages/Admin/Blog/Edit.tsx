@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
 import { ImageUploader } from '@/Components/admin/ImageUploader';
+import { RichTextEditor } from '@/Components/admin/RichTextEditor';
 import { BlogCategory, BlogPost, TeamMember } from '@/types';
 import { ArrowLeft } from 'lucide-react';
 
@@ -148,15 +149,15 @@ export default function BlogEdit({ post, categories, authors }: BlogEditProps) {
                     </div>
 
                     <div>
-                        <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
-                            Article Body (HTML supported) *
-                        </label>
-                        <textarea
-                            rows={8}
+                        <RichTextEditor
+                            label="Article Body"
                             required
+                            id="blog-body-edit"
                             value={data.body}
-                            onChange={(e) => setData('body', e.target.value)}
-                            className="w-full px-4 py-2 rounded-xl border border-[#E8DFC8] text-sm font-mono text-xs"
+                            onChange={(html) => setData('body', html)}
+                            placeholder="Write your full journal article here…"
+                            minHeight={320}
+                            error={errors.body}
                         />
                     </div>
 

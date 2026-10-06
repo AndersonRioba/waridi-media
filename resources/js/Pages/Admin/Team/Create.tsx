@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
 import { ImageUploader } from '@/Components/admin/ImageUploader';
+import { RichTextEditor } from '@/Components/admin/RichTextEditor';
 import { ArrowLeft } from 'lucide-react';
 
 export default function TeamCreate() {
@@ -78,14 +79,14 @@ export default function TeamCreate() {
                     </div>
 
                     <div>
-                        <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
-                            Short Biography
-                        </label>
-                        <textarea
-                            rows={3}
+                        <RichTextEditor
+                            label="Short Biography"
+                            id="team-bio"
                             value={data.bio}
-                            onChange={(e) => setData('bio', e.target.value)}
-                            className="w-full px-4 py-2 rounded-xl border border-[#E8DFC8] text-sm"
+                            onChange={(html) => setData('bio', html)}
+                            placeholder="A few sentences about this team member's background, specialties, and creative philosophy…"
+                            minHeight={160}
+                            error={errors.bio}
                         />
                     </div>
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useForm } from '@inertiajs/react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
+import { RichTextEditor } from '@/Components/admin/RichTextEditor';
 import { Service } from '@/types';
 import { ArrowLeft, Plus, Trash2 } from 'lucide-react';
 
@@ -116,14 +117,14 @@ export default function ServicesEdit({ service }: ServicesEditProps) {
                     </div>
 
                     <div>
-                        <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
-                            Description
-                        </label>
-                        <textarea
-                            rows={3}
+                        <RichTextEditor
+                            label="Description"
+                            id="service-description-edit"
                             value={data.description}
-                            onChange={(e) => setData('description', e.target.value)}
-                            className="w-full px-4 py-2 rounded-xl border border-[#E8DFC8] text-sm"
+                            onChange={(html) => setData('description', html)}
+                            placeholder="Describe this service offering…"
+                            minHeight={180}
+                            error={errors.description}
                         />
                     </div>
 
