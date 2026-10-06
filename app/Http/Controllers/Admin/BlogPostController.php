@@ -57,35 +57,36 @@ class BlogPostController extends Controller
         return redirect()->route('admin.blog.index')->with('success', 'Article created successfully.');
     }
 
-    public function edit(BlogPost $post): Response
+    // Route::resource('blog') generates {blog} — parameter name must match
+    public function edit(BlogPost $blog): Response
     {
         $categories = BlogCategory::orderBy('name')->get();
         $authors = TeamMember::active()->get();
 
         return Inertia::render('Admin/Blog/Edit', [
-            'post' => $post,
+            'post' => $blog,
             'categories' => $categories,
             'authors' => $authors,
         ]);
     }
 
-    public function update(BlogPostRequest $request, BlogPost $post): RedirectResponse
+    public function update(BlogPostRequest $request, BlogPost $blog): RedirectResponse
     {
         $data = $request->validated();
         $data['slug'] = !empty($data['slug']) ? Str::slug($data['slug']) : Str::slug($data['title']);
 
-        if ($data['status'] === 'published' && empty($post->published_at) && empty($data['published_at'])) {
+        if ($data['status'] === 'published' && empty($blog->published_at) && empty($data['published_at'])) {
             $data['published_at'] = now();
         }
 
-        $post->update($data);
+        $blog->update($data);
 
         return redirect()->route('admin.blog.index')->with('success', 'Article updated.');
     }
 
-    public function destroy(BlogPost $post): RedirectResponse
+    public function destroy(BlogPost $blog): RedirectResponse
     {
-        $post->delete();
+        $blog->delete();
 
         return redirect()->route('admin.blog.index')->with('success', 'Article removed.');
     }

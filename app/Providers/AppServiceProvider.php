@@ -21,5 +21,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
+
+        \Illuminate\Support\Facades\Route::model('team', \App\Models\TeamMember::class);
+        \Illuminate\Support\Facades\Route::model('blog', \App\Models\BlogPost::class);
+        \Illuminate\Support\Facades\Route::model('livestream', \App\Models\LivestreamEvent::class);
     }
 }

@@ -32,23 +32,24 @@ class TeamMemberController extends Controller
         return redirect()->route('admin.team.index')->with('success', 'Team member added successfully.');
     }
 
-    public function edit(TeamMember $teamMember): Response
+    // Route::resource('team') generates {team} — parameter name must match
+    public function edit(TeamMember $team): Response
     {
         return Inertia::render('Admin/Team/Edit', [
-            'member' => $teamMember,
+            'member' => $team,
         ]);
     }
 
-    public function update(TeamMemberRequest $request, TeamMember $teamMember): RedirectResponse
+    public function update(TeamMemberRequest $request, TeamMember $team): RedirectResponse
     {
-        $teamMember->update($request->validated());
+        $team->update($request->validated());
 
         return redirect()->route('admin.team.index')->with('success', 'Team member updated successfully.');
     }
 
-    public function destroy(TeamMember $teamMember): RedirectResponse
+    public function destroy(TeamMember $team): RedirectResponse
     {
-        $teamMember->delete();
+        $team->delete();
 
         return redirect()->route('admin.team.index')->with('success', 'Team member removed.');
     }

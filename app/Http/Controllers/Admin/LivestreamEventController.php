@@ -32,23 +32,24 @@ class LivestreamEventController extends Controller
         return redirect()->route('admin.livestream.index')->with('success', 'Livestream event scheduled.');
     }
 
-    public function edit(LivestreamEvent $event): Response
+    // Route::resource('livestream') generates {livestream} — parameter name must match
+    public function edit(LivestreamEvent $livestream): Response
     {
         return Inertia::render('Admin/Livestream/Edit', [
-            'event' => $event,
+            'event' => $livestream,
         ]);
     }
 
-    public function update(LivestreamEventRequest $request, LivestreamEvent $event): RedirectResponse
+    public function update(LivestreamEventRequest $request, LivestreamEvent $livestream): RedirectResponse
     {
-        $event->update($request->validated());
+        $livestream->update($request->validated());
 
         return redirect()->route('admin.livestream.index')->with('success', 'Livestream event updated.');
     }
 
-    public function destroy(LivestreamEvent $event): RedirectResponse
+    public function destroy(LivestreamEvent $livestream): RedirectResponse
     {
-        $event->delete();
+        $livestream->delete();
 
         return redirect()->route('admin.livestream.index')->with('success', 'Livestream event deleted.');
     }

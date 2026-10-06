@@ -13,7 +13,7 @@ class BlogPostRequest extends FormRequest
 
     public function rules(): array
     {
-        $postId = $this->route('post')?->id ?? $this->route('post');
+        $postId = $this->route('blog')?->id ?? $this->route('blog') ?? $this->route('post')?->id ?? $this->route('post');
 
         return [
             'title' => ['required', 'string', 'max:255'],
