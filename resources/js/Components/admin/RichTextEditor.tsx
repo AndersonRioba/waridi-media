@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
@@ -219,6 +219,26 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
             },
         },
     });
+
+    // ── Controlled sync ──────────────────────────────────────────────
+    // When `value` is pre-populated from the server (edit forms), the editor
+    // may have mounted before the data was ready. This effect pushes the
+    // external value in whenever it genuinely differs from the current HTML,
+    // without touching the cursor position during normal typing.
+    useEffect(() => {
+        if (!editor || editor.isDestroyed) return;
+
+        const current = editor.getHTML();
+        // Normalise TipTap's empty-doc output so we don't overwrite a blank
+        // editor with an identical blank value.
+        const isEmpty = (html: string) =>
+            !html || html === '<p></p>' || html.trim() === '';
+
+        if (!isEmpty(value) && value !== current) {
+            // Preserve the current selection by restoring it after the update
+            editor.commands.setContent(value, false /* don't emit update */);
+        }
+    }, [value, editor]);
 
     const charCount = editor && maxLength ? editor.storage.characterCount?.characters?.() ?? 0 : null;
 
