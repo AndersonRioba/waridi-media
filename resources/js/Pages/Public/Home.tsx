@@ -8,6 +8,8 @@ import { GoldDivider } from '@/Components/public/GoldDivider';
 import { BrandRoseIcon } from '@/Components/public/BrandLogo';
 
 import { ServiceWordRotator } from '@/Components/public/ServiceWordRotator';
+import { WhoWeAreSection } from '@/Components/public/WhoWeAreSection';
+import { TrustStrip } from '@/Components/public/TrustStrip';
 import { Project, Service, Testimonial, BlogPost, LivestreamEvent, Client } from '@/types';
 import {
     ArrowRight,
@@ -80,6 +82,29 @@ export default function Home({
               title: s.title,
               category: s.service_group || 'photography',
           }));
+
+    // Dynamic Featured Work Section
+    const featuredEyebrow = settings?.featured_work_eyebrow || 'CURATED PORTFOLIO';
+    const featuredTitle = settings?.featured_work_title || 'Selected Masterpieces';
+    const featuredSubtitle = settings?.featured_work_subtitle || 'A curated showcase of fine-art studio portraits, high-fashion editorials, heartfelt weddings, and cinematic commercial reels.';
+    const featuredCtaText = settings?.featured_work_cta_text || 'Explore Full Portfolio';
+
+    // Dynamic Media Production Showcase
+    const mediaBadge = settings?.media_prod_badge || 'Media & Broadcast Division';
+    const mediaTitle = settings?.media_prod_title || 'Cinema-Grade 4K Production & Hybrid Livestreaming';
+    const mediaDesc = settings?.media_prod_description || 'Beyond the photographic darkroom, Waridi operates a high-capacity media division specializing in multi-camera live broadcasts, documentary storytelling, and KCAA-certified drone cinematography for regional summits and global brands.';
+    const mediaImage = settings?.media_prod_image || 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80';
+    const mediaPrimaryText = settings?.media_prod_primary_text || 'View Livestreams';
+    const mediaPrimaryLink = settings?.media_prod_primary_link || '/livestream';
+    const mediaSecondaryText = settings?.media_prod_secondary_text || 'Production Specs';
+    const mediaSecondaryLink = settings?.media_prod_secondary_link || '/services';
+
+    // Dynamic Testimonials, Journal & CTA
+    const testimonialsEyebrow = settings?.testimonials_eyebrow || 'PATRON WORDS';
+    const testimonialsTitle = settings?.testimonials_title || 'Words from Our Cherished Clients';
+    const journalEyebrow = settings?.journal_eyebrow || 'THE JOURNAL';
+    const journalTitle = settings?.journal_title || 'Behind the Lens & Studio Stories';
+    const journalCtaText = settings?.journal_cta_text || 'Read All Articles';
 
     return (
         <PublicLayout title="Where Moments Become Memories">
@@ -175,16 +200,24 @@ export default function Home({
                 </div>
             </section>
 
+            {/* TRUSTED CLIENT MARQUEE STRIP */}
+            {clients && clients.length > 0 && (
+                <TrustStrip
+                    clients={clients}
+                    title={settings?.trust_strip_title || 'TRUSTED BY LEADING INSTITUTIONS, BRANDS & FAMILIES'}
+                />
+            )}
+
             {/* 3. FEATURED WORK GRID */}
             <section className="py-24 bg-[#FFFFFF]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-2xl mx-auto mb-16">
-                        <GoldDivider label="CURATED PORTFOLIO" diamondSize={5} className="mb-3" />
+                        <GoldDivider label={featuredEyebrow} diamondSize={5} className="mb-3" />
                         <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#1A1A1A] tracking-tight">
-                            Selected Masterpieces
+                            {featuredTitle}
                         </h2>
                         <p className="text-sm sm:text-base text-[#5C5850] mt-3">
-                            A curated showcase of fine-art studio portraits, high-fashion editorials, heartfelt weddings, and cinematic commercial reels.
+                            {featuredSubtitle}
                         </p>
                     </div>
 
@@ -201,14 +234,17 @@ export default function Home({
                             href="/portfolio"
                             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-[#141414] bg-white border border-[#C9A227] hover:bg-gradient-to-r hover:from-[#E8C766] hover:to-[#C9A227] hover:text-white transition-all shadow-[0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_10px_rgba(201,162,39,0.25)] hover:-translate-y-0.5 group"
                         >
-                            <span>Explore Full Portfolio</span>
+                            <span>{featuredCtaText}</span>
                             <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
                         </Link>
                     </div>
                 </div>
             </section>
 
-            {/* 4. BY THE NUMBERS STRIP (Content-editable via Admin Settings) */}
+            {/* 4. WHO WE ARE & MISSION / VISION SECTION */}
+            <WhoWeAreSection settings={settings} />
+
+            {/* 5. BY THE NUMBERS STRIP (Content-editable via Admin Settings) */}
             <section className="bg-[#FBF6EC] py-16 border-y border-[#E8DFC8]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center divide-y lg:divide-y-0 lg:divide-x divide-[#E8DFC8]">
@@ -233,27 +269,27 @@ export default function Home({
                         <div>
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8C766]/15 border border-[#E8C766]/30 text-[#E8C766] text-xs uppercase tracking-wider font-medium mb-4">
                                 <Radio size={14} className="text-[#C9432E]" />
-                                <span>Media & Broadcast Division</span>
+                                <span>{mediaBadge}</span>
                             </div>
                             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
-                                Cinema-Grade 4K Production & Hybrid Livestreaming
+                                {mediaTitle}
                             </h2>
                             <p className="text-sm sm:text-base text-[#A8A49C] leading-relaxed mb-6 font-light">
-                                Beyond the photographic darkroom, Waridi operates a high-capacity media division specializing in multi-camera live broadcasts, documentary storytelling, and KCAA-certified drone cinematography for regional summits and global brands.
+                                {mediaDesc}
                             </p>
                             <div className="flex flex-wrap gap-4">
                                 <Link
-                                    href="/livestream"
+                                    href={mediaPrimaryLink}
                                     className="inline-flex items-center gap-2 px-6 py-3.5 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-[#141414] bg-[#E8C766] hover:bg-[#C9A227] shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_16px_rgba(232,199,102,0.4)] hover:-translate-y-0.5 transition-all"
                                 >
                                     <Play size={14} fill="currentColor" />
-                                    <span>View Livestreams</span>
+                                    <span>{mediaPrimaryText}</span>
                                 </Link>
                                 <Link
-                                    href="/services"
+                                    href={mediaSecondaryLink}
                                     className="inline-flex items-center gap-2 px-6 py-3.5 rounded-none text-xs font-semibold uppercase tracking-[0.16em] text-white border border-[#E8C766]/40 hover:border-[#E8C766] shadow-[0_2px_4px_rgba(0,0,0,0.3)] hover:shadow-md hover:-translate-y-0.5 transition-all"
                                 >
-                                    <span>Production Specs</span>
+                                    <span>{mediaSecondaryText}</span>
                                 </Link>
                             </div>
                         </div>
@@ -261,13 +297,13 @@ export default function Home({
                         {/* Media Video Graphic */}
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[#2A2A2A] aspect-video group">
                             <img
-                                src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80"
+                                src={mediaImage}
                                 alt="Livestreaming control setup"
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />
                             <div className="absolute inset-0 bg-[#141414]/40 flex items-center justify-center">
                                 <Link
-                                    href="/livestream"
+                                    href={mediaPrimaryLink}
                                     className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-[#E8C766] flex items-center justify-center text-[#E8C766] hover:scale-110 transition-all shadow-lg"
                                 >
                                     <Play size={24} fill="currentColor" className="ml-1" />
@@ -324,9 +360,9 @@ export default function Home({
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-xl mx-auto mb-4">
-                        <GoldDivider label="PATRON WORDS" diamondSize={5} className="mb-2" />
+                        <GoldDivider label={testimonialsEyebrow} diamondSize={5} className="mb-2" />
                         <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
-                            Words from Our Cherished Clients
+                            {testimonialsTitle}
                         </h2>
                     </div>
 
@@ -340,16 +376,16 @@ export default function Home({
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
                             <div>
-                                <GoldDivider label="THE JOURNAL" diamondSize={5} className="mb-2" />
+                                <GoldDivider label={journalEyebrow} diamondSize={5} className="mb-2" />
                                 <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
-                                    Behind the Lens & Studio Stories
+                                    {journalTitle}
                                 </h2>
                             </div>
                             <Link
                                 href="/blog"
                                 className="mt-4 md:mt-0 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#8A6A16] hover:text-[#141414]"
                             >
-                                <span>Read All Articles</span>
+                                <span>{journalCtaText}</span>
                                 <ArrowRight size={14} />
                             </Link>
                         </div>
@@ -387,7 +423,12 @@ export default function Home({
             )}
 
             {/* 9. CTA SECTION */}
-            <CTASection />
+            <CTASection
+                title={settings?.cta_title}
+                subtitle={settings?.cta_subtitle}
+                buttonText={settings?.cta_button_text}
+                buttonLink={settings?.cta_button_link}
+            />
         </PublicLayout>
     );
 }

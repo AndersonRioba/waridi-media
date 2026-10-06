@@ -38,6 +38,7 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                 { title: 'Drone Services', category: 'media_production' },
                 { title: 'Canvas Prints', category: 'print_creative' },
             ],
+            trust_strip_title: settings?.trust_strip_title || 'TRUSTED BY LEADING INSTITUTIONS, BRANDS & FAMILIES',
             contact_email: settings?.contact_email || 'info@waridimedia.com',
             contact_phone: settings?.contact_phone || '+254 700 123 456',
             address: settings?.address || 'Ngong Road, Nairobi, Kenya',
@@ -104,6 +105,42 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
             ],
             about_cta_title: settings?.about_cta_title || 'Visit Our Studio Sanctuary',
             about_cta_subtitle: settings?.about_cta_subtitle || 'Book an exploratory tour of our studios or schedule a creative consultation with our team.',
+            // Homepage Who We Are & Mission / Vision
+            who_we_are_title: settings?.who_we_are_title || 'Who We Are',
+            who_we_are_eyebrow: settings?.who_we_are_eyebrow || 'OUR ESSENCE & PURPOSE',
+            who_we_are_p1: settings?.who_we_are_p1 || 'Waridi Photo Studio & Media is an independent, premier media production and creative studio offering a comprehensive suite of creative and technical solutions. Over the years, we have built a reputation for reliability, artistic innovation, and unmatched production quality across Kenya and East Africa.',
+            who_we_are_p2: settings?.who_we_are_p2 || 'Our work spans fine-art studio photography, multi-camera live streaming, corporate events coverage, documentary films, aerial cinematography, and archival fine art printing. We combine cutting-edge cinema equipment with a passionate, highly skilled crew to bring vision to life — beautifully and efficiently.',
+            who_we_are_mission_title: settings?.who_we_are_mission_title || 'Our Mission',
+            who_we_are_mission_text: settings?.who_we_are_mission_text || 'To deliver innovative, cinema-grade media production and studio solutions that elevate brands, capture authentic emotion, and shape meaningful visual memories across Africa.',
+            who_we_are_vision_title: settings?.who_we_are_vision_title || 'Our Vision',
+            who_we_are_vision_text: settings?.who_we_are_vision_text || 'To be Africa’s pre-eminent media production house and photography sanctuary, celebrated for artistic excellence, technological leadership, and lasting cultural impact.',
+            who_we_are_image: settings?.who_we_are_image || 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80',
+            who_we_are_values: settings?.who_we_are_values || ['Reliability', 'Quality', 'Integrity', 'Affordable Rates'],
+            // Homepage Featured Portfolio Header
+            featured_work_eyebrow: settings?.featured_work_eyebrow || 'CURATED PORTFOLIO',
+            featured_work_title: settings?.featured_work_title || 'Selected Masterpieces',
+            featured_work_subtitle: settings?.featured_work_subtitle || 'A curated showcase of fine-art studio portraits, high-fashion editorials, heartfelt weddings, and cinematic commercial reels.',
+            featured_work_cta_text: settings?.featured_work_cta_text || 'Explore Full Portfolio',
+            // Homepage Media Production & Broadcast Division Showcase
+            media_prod_badge: settings?.media_prod_badge || 'Media & Broadcast Division',
+            media_prod_title: settings?.media_prod_title || 'Cinema-Grade 4K Production & Hybrid Livestreaming',
+            media_prod_description: settings?.media_prod_description || 'Beyond the photographic darkroom, Waridi operates a high-capacity media division specializing in multi-camera live broadcasts, documentary storytelling, and KCAA-certified drone cinematography for regional summits and global brands.',
+            media_prod_image: settings?.media_prod_image || 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
+            media_prod_primary_text: settings?.media_prod_primary_text || 'View Livestreams',
+            media_prod_primary_link: settings?.media_prod_primary_link || '/livestream',
+            media_prod_secondary_text: settings?.media_prod_secondary_text || 'Production Specs',
+            media_prod_secondary_link: settings?.media_prod_secondary_link || '/services',
+            // Homepage Testimonials & Journal Headers
+            testimonials_eyebrow: settings?.testimonials_eyebrow || 'PATRON WORDS',
+            testimonials_title: settings?.testimonials_title || 'Words from Our Cherished Clients',
+            journal_eyebrow: settings?.journal_eyebrow || 'THE JOURNAL',
+            journal_title: settings?.journal_title || 'Behind the Lens & Studio Stories',
+            journal_cta_text: settings?.journal_cta_text || 'Read All Articles',
+            // Homepage CTA Section Customizer
+            cta_title: settings?.cta_title || 'Ready to Immortalize Your Moments?',
+            cta_subtitle: settings?.cta_subtitle || 'Book your luxury studio session, wedding coverage, or cinematic production consultation today.',
+            cta_button_text: settings?.cta_button_text || 'Reserve Your Session',
+            cta_button_link: settings?.cta_button_link || '/contact',
         },
     });
 
@@ -206,6 +243,18 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
     };
     const removeEquipment = (index: number) => {
         updateField('about_equipment', (data.settings.about_equipment || []).filter((_: any, i: number) => i !== index));
+    };
+
+    const updateWhoWeAreValue = (index: number, val: string) => {
+        const values = [...(data.settings.who_we_are_values || [])];
+        values[index] = val;
+        updateField('who_we_are_values', values);
+    };
+    const addWhoWeAreValue = () => {
+        updateField('who_we_are_values', [...(data.settings.who_we_are_values || []), 'New Value']);
+    };
+    const removeWhoWeAreValue = (index: number) => {
+        updateField('who_we_are_values', (data.settings.who_we_are_values || []).filter((_: any, i: number) => i !== index));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -411,6 +460,19 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                                     </div>
                                 ))}
                             </div>
+                        </div>
+
+                        <div className="pt-3 border-t border-[#E8DFC8]">
+                            <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                Client Logo Marquee Strip Headline
+                            </label>
+                            <input
+                                type="text"
+                                value={data.settings.trust_strip_title}
+                                onChange={(e) => updateField('trust_strip_title', e.target.value)}
+                                placeholder="e.g. TRUSTED BY LEADING INSTITUTIONS, BRANDS & FAMILIES"
+                                className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm uppercase tracking-wider text-[#8A6A16]"
+                            />
                         </div>
                     </div>
 
@@ -784,6 +846,476 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                                     />
                                 </div>
                             ))}
+                        </div>
+                    </div>
+
+                    {/* Homepage Who We Are & Mission / Vision Section Customizer */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <Sparkles size={18} className="text-[#C9A227]" />
+                            <div>
+                                <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                    Homepage "Who We Are", Mission & Vision Section
+                                </h2>
+                                <p className="text-xs text-[#5C5850] mt-0.5">
+                                    Cinematic dark band on the homepage displaying studio narrative, mission, vision, and core values.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Eyebrow Label
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.who_we_are_eyebrow}
+                                    onChange={(e) => updateField('who_we_are_eyebrow', e.target.value)}
+                                    placeholder="e.g. OUR ESSENCE & PURPOSE"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Section Title
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.who_we_are_title}
+                                    onChange={(e) => updateField('who_we_are_title', e.target.value)}
+                                    placeholder="e.g. Who We Are"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm font-serif font-bold text-[#8A6A16]"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    First Narrative Paragraph
+                                </label>
+                                <textarea
+                                    rows={3}
+                                    value={data.settings.who_we_are_p1}
+                                    onChange={(e) => updateField('who_we_are_p1', e.target.value)}
+                                    placeholder="Paragraph 1 about the studio history, reputation, and reach..."
+                                    className="w-full px-4 py-2 rounded-xl border border-[#E8DFC8] text-sm leading-relaxed"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Second Narrative Paragraph
+                                </label>
+                                <textarea
+                                    rows={3}
+                                    value={data.settings.who_we_are_p2}
+                                    onChange={(e) => updateField('who_we_are_p2', e.target.value)}
+                                    placeholder="Paragraph 2 about cutting-edge equipment, passionate team, and multi-disciplinary services..."
+                                    className="w-full px-4 py-2 rounded-xl border border-[#E8DFC8] text-sm leading-relaxed"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Mission & Vision */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                            <div className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-3">
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#8A6A16] mb-1">
+                                        Mission Card Title
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.who_we_are_mission_title}
+                                        onChange={(e) => updateField('who_we_are_mission_title', e.target.value)}
+                                        placeholder="Our Mission"
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-sm font-serif font-bold text-[#1A1A1A] bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#5C5850] mb-1">
+                                        Mission Statement
+                                    </label>
+                                    <textarea
+                                        rows={3}
+                                        value={data.settings.who_we_are_mission_text}
+                                        onChange={(e) => updateField('who_we_are_mission_text', e.target.value)}
+                                        placeholder="To deliver innovative, cinema-grade media..."
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs text-[#5C5850] bg-white leading-relaxed"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-3">
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#8A6A16] mb-1">
+                                        Vision Card Title
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.who_we_are_vision_title}
+                                        onChange={(e) => updateField('who_we_are_vision_title', e.target.value)}
+                                        placeholder="Our Vision"
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-sm font-serif font-bold text-[#1A1A1A] bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#5C5850] mb-1">
+                                        Vision Statement
+                                    </label>
+                                    <textarea
+                                        rows={3}
+                                        value={data.settings.who_we_are_vision_text}
+                                        onChange={(e) => updateField('who_we_are_vision_text', e.target.value)}
+                                        placeholder="To be Africa’s leading media production and events company..."
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs text-[#5C5850] bg-white leading-relaxed"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Image Uploader */}
+                        <ImageUploader
+                            label="Production & Studio Behind-the-Scenes Photo"
+                            description="Portrait or square photo depicting crew, broadcast gear, or studio camera rig"
+                            value={data.settings.who_we_are_image}
+                            onChange={(url) => updateField('who_we_are_image', url)}
+                        />
+
+                        {/* Core Values */}
+                        <div className="space-y-3 pt-2 border-t border-[#E8DFC8]">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A]">
+                                        Core Values Badges
+                                    </label>
+                                    <p className="text-xs text-[#5C5850]">
+                                        Badges displayed in the Core Values block at the bottom of the section.
+                                    </p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={addWhoWeAreValue}
+                                    className="inline-flex items-center gap-1 text-xs text-[#8A6A16] font-semibold hover:text-[#141414]"
+                                >
+                                    <Plus size={14} /> Add Value
+                                </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                                {(data.settings.who_we_are_values || []).map((val: string, idx: number) => (
+                                    <div
+                                        key={idx}
+                                        className="flex items-center gap-2 p-2 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8]"
+                                    >
+                                        <input
+                                            type="text"
+                                            value={val}
+                                            onChange={(e) => updateWhoWeAreValue(idx, e.target.value)}
+                                            placeholder="e.g. Reliability"
+                                            className="flex-1 px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs font-semibold bg-white text-[#1A1A1A]"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => removeWhoWeAreValue(idx)}
+                                            className="p-1 text-red-600 hover:text-red-800"
+                                            title="Delete value"
+                                        >
+                                            <Trash2 size={15} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Homepage Curated Portfolio Header Customizer */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <ImageIcon size={18} className="text-[#C9A227]" />
+                            <div>
+                                <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                    Homepage Curated Portfolio Showcase
+                                </h2>
+                                <p className="text-xs text-[#5C5850] mt-0.5">
+                                    Headings and link text for the featured masterpieces gallery on the landing page.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Eyebrow Label
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.featured_work_eyebrow}
+                                    onChange={(e) => updateField('featured_work_eyebrow', e.target.value)}
+                                    placeholder="e.g. CURATED PORTFOLIO"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Main Section Headline
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.featured_work_title}
+                                    onChange={(e) => updateField('featured_work_title', e.target.value)}
+                                    placeholder="e.g. Selected Masterpieces"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm font-serif font-bold text-[#1A1A1A]"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                Description Subtitle
+                            </label>
+                            <textarea
+                                rows={2}
+                                value={data.settings.featured_work_subtitle}
+                                onChange={(e) => updateField('featured_work_subtitle', e.target.value)}
+                                placeholder="A curated showcase of fine-art studio portraits..."
+                                className="w-full px-4 py-2 rounded-xl border border-[#E8DFC8] text-sm leading-relaxed"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                Bottom "View Full Portfolio" Button Label
+                            </label>
+                            <input
+                                type="text"
+                                value={data.settings.featured_work_cta_text}
+                                onChange={(e) => updateField('featured_work_cta_text', e.target.value)}
+                                placeholder="e.g. Explore Full Portfolio"
+                                className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm font-semibold"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Homepage Media Production & Broadcast Division Customizer */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <Layers size={18} className="text-[#C9A227]" />
+                            <div>
+                                <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                    Homepage Media Production & Broadcast Showcase
+                                </h2>
+                                <p className="text-xs text-[#5C5850] mt-0.5">
+                                    Cinematic dark banner dedicated to broadcast gear, 4K livestreams, and drone cinematography.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Badge Ribbon
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.media_prod_badge}
+                                    onChange={(e) => updateField('media_prod_badge', e.target.value)}
+                                    placeholder="e.g. Media & Broadcast Division"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                    Headline
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.settings.media_prod_title}
+                                    onChange={(e) => updateField('media_prod_title', e.target.value)}
+                                    placeholder="e.g. Cinema-Grade 4K Production & Hybrid Livestreaming"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-[#E8DFC8] text-sm font-serif font-bold text-[#1A1A1A]"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-2">
+                                Narrative Description
+                            </label>
+                            <textarea
+                                rows={3}
+                                value={data.settings.media_prod_description}
+                                onChange={(e) => updateField('media_prod_description', e.target.value)}
+                                placeholder="Beyond the photographic darkroom, Waridi operates..."
+                                className="w-full px-4 py-2 rounded-xl border border-[#E8DFC8] text-sm leading-relaxed"
+                            />
+                        </div>
+
+                        <ImageUploader
+                            label="Media Production Feature Image"
+                            description="High-resolution cinema, broadcast rig, or live control room photograph"
+                            value={data.settings.media_prod_image}
+                            onChange={(url) => updateField('media_prod_image', url)}
+                        />
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                            <div className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-3">
+                                <h3 className="text-xs uppercase font-semibold text-[#8A6A16]">Primary Button</h3>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">Text</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.media_prod_primary_text}
+                                        onChange={(e) => updateField('media_prod_primary_text', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">Link URL</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.media_prod_primary_link}
+                                        onChange={(e) => updateField('media_prod_primary_link', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-3">
+                                <h3 className="text-xs uppercase font-semibold text-[#8A6A16]">Secondary Button</h3>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">Text</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.media_prod_secondary_text}
+                                        onChange={(e) => updateField('media_prod_secondary_text', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">Link URL</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.media_prod_secondary_link}
+                                        onChange={(e) => updateField('media_prod_secondary_link', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Homepage Testimonials & Journal Headers Customizer */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#E8DFC8] space-y-6">
+                        <div className="flex items-center gap-2 pb-2 border-b border-[#E8DFC8]">
+                            <Sparkles size={18} className="text-[#C9A227]" />
+                            <h2 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                                Testimonials, Journal & Global CTA Section Headers
+                            </h2>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-3">
+                                <h3 className="text-xs uppercase font-semibold text-[#8A6A16]">Testimonials Header</h3>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">Eyebrow</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.testimonials_eyebrow}
+                                        onChange={(e) => updateField('testimonials_eyebrow', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">Headline</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.testimonials_title}
+                                        onChange={(e) => updateField('testimonials_title', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs font-serif font-bold bg-white"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-3">
+                                <h3 className="text-xs uppercase font-semibold text-[#8A6A16]">Blog / Journal Header</h3>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">Eyebrow</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.journal_eyebrow}
+                                        onChange={(e) => updateField('journal_eyebrow', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">Headline</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.journal_title}
+                                        onChange={(e) => updateField('journal_title', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs font-serif font-bold bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">Button Text</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.journal_cta_text}
+                                        onChange={(e) => updateField('journal_cta_text', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* CTA Section */}
+                        <div className="p-4 bg-[#FBF6EC] rounded-xl border border-[#E8DFC8] space-y-4">
+                            <h3 className="text-xs uppercase font-semibold text-[#8A6A16]">Global Pre-Footer Call to Action (CTA) Banner</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">CTA Headline</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.cta_title}
+                                        onChange={(e) => updateField('cta_title', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs font-serif font-bold bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">CTA Button Text</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.cta_button_text}
+                                        onChange={(e) => updateField('cta_button_text', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">CTA Subtitle</label>
+                                    <textarea
+                                        rows={2}
+                                        value={data.settings.cta_subtitle}
+                                        onChange={(e) => updateField('cta_subtitle', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white leading-relaxed"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase font-semibold text-[#1A1A1A] mb-1">CTA Button Link URL</label>
+                                    <input
+                                        type="text"
+                                        value={data.settings.cta_button_link}
+                                        onChange={(e) => updateField('cta_button_link', e.target.value)}
+                                        className="w-full px-3 py-1.5 rounded-lg border border-[#E8DFC8] text-xs bg-white"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
 
