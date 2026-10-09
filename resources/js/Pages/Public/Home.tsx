@@ -9,7 +9,6 @@ import { BrandRoseIcon } from '@/Components/public/BrandLogo';
 
 import { ServiceWordRotator } from '@/Components/public/ServiceWordRotator';
 import { WhoWeAreSection } from '@/Components/public/WhoWeAreSection';
-import { TrustStrip } from '@/Components/public/TrustStrip';
 import { Project, Service, Testimonial, BlogPost, LivestreamEvent, Client } from '@/types';
 import {
     ArrowRight,
@@ -199,14 +198,6 @@ export default function Home({
                     </div>
                 </div>
             </section>
-
-            {/* TRUSTED CLIENT MARQUEE STRIP */}
-            {clients && clients.length > 0 && (
-                <TrustStrip
-                    clients={clients}
-                    title={settings?.trust_strip_title || 'TRUSTED BY LEADING INSTITUTIONS, BRANDS & FAMILIES'}
-                />
-            )}
 
             {/* 3. FEATURED WORK GRID */}
             <section className="py-24 bg-[#FFFFFF]">
