@@ -133,7 +133,7 @@ export default function ProjectShow({ project, relatedProjects = [] }: ProjectSh
                         <div className="max-w-3xl mx-auto mb-20">
                             <GoldDivider label="CASE STUDY" diamondSize={5} className="mb-4" />
                             <div
-                                className="prose prose-lg prose-headings:font-serif prose-headings:text-[#1A1A1A] prose-p:text-[#5C5850] prose-p:leading-relaxed"
+                                className="prose prose-lg max-w-none rich-text-content"
                                 dangerouslySetInnerHTML={{ __html: project.body }}
                             />
                         </div>

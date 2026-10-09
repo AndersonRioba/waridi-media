@@ -40,7 +40,7 @@ export default function BlogShow({ post, recentPosts = [] }: BlogShowProps) {
                     </h1>
 
                     {/* Meta */}
-                    <div className="flex items-center gap-6 text-xs text-[#5C5850] pb-8 border-b border-[#E8DFC8]">
+                    <div className="flex items-center gap-6 text-xs text-[#5C5850] mb-8">
                         {post.author && (
                             <div className="flex items-center gap-2">
                                 {post.author.photo ? (
@@ -62,17 +62,19 @@ export default function BlogShow({ post, recentPosts = [] }: BlogShowProps) {
                     </div>
 
                     {/* Featured Image */}
-                    <div className="my-10 rounded-2xl overflow-hidden shadow-xl border border-[#E8DFC8]">
-                        <img
-                            src={post.cover_image}
-                            alt={post.title}
-                            className="w-full max-h-[500px] object-cover"
-                        />
-                    </div>
+                    {post.cover_image && (
+                        <div className="mb-10 rounded-2xl overflow-hidden shadow-xl border border-[#E8DFC8]">
+                            <img
+                                src={post.cover_image}
+                                alt={post.title}
+                                className="w-full max-h-[500px] object-cover"
+                            />
+                        </div>
+                    )}
 
                     {/* Body */}
                     <div
-                        className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-[#1A1A1A] prose-p:text-[#5C5850] prose-p:leading-relaxed"
+                        className="prose prose-lg max-w-none rich-text-content"
                         dangerouslySetInnerHTML={{ __html: post.body }}
                     />
                 </div>
