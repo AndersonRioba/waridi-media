@@ -187,7 +187,7 @@
             <a href="/services">Services</a> •
             <a href="/about">About</a> •
             <a href="/livestream">Live Events</a> •
-            <a href="/journal">Journal</a>
+            <a href="/blog">Blog</a>
         </div>
     </div>
 </body>

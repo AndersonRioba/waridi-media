@@ -93,10 +93,11 @@ export default function BlogIndex({ posts, selectedStatus }: BlogIndexProps) {
                                 <td className="py-3 px-4 text-right">
                                     <div className="flex items-center justify-end gap-2">
                                         <a
-                                            href={`/journal/${post.slug}`}
+                                            href={`/blog/${post.slug}`}
                                             target="_blank"
                                             rel="noreferrer"
                                             className="p-1 text-[#5C5850] hover:text-[#8A6A16]"
+                                            title="View published article"
                                         >
                                             <ExternalLink size={15} />
                                         </a>

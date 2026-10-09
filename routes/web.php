@@ -21,6 +21,8 @@ Route::get('/about', AboutController::class)->name('about');
 Route::get('/livestream', LivestreamController::class)->name('livestream');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::redirect('/journal', '/blog', 301);
+Route::get('/journal/{slug}', fn (string $slug) => redirect('/blog/'.$slug, 301));
 Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 

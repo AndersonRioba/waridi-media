@@ -75,7 +75,7 @@ export default function SettingsEdit({ settings }: SettingsEditProps) {
                 { label: 'Services', href: '/services' },
                 { label: 'About', href: '/about' },
                 { label: 'Livestream', href: '/livestream' },
-                { label: 'Journal', href: '/journal' },
+                { label: 'Blog', href: '/blog' },
                 { label: 'Contact', href: '/contact' },
             ],
             footer_description: settings?.footer_description || 'Premier East African photography studio, cinema media production, and archival fine art printing. Crafting timeless visual memories with uncompromised artistic devotion.',
